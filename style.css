@@ -209,8 +209,21 @@ svg.viz path { fill: none; vector-effect: non-scaling-stroke; stroke-linecap: ro
 svg.viz .base { stroke: var(--muted); stroke-width: 1.5; opacity: 0.45; }
 svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
+/* Tokens stream past; the brass row carries twice as many in the same time. */
+.tokens span { animation: stream 1.6s linear infinite; }
+@keyframes stream { to { background-position-x: 16px; } }
+
+/* Both loss curves draw left to right, hold, then fade and redraw. */
+svg.viz { animation: draw 7s ease-out infinite; }
+@keyframes draw {
+  0%   { clip-path: inset(0 100% 0 0); opacity: 1; }
+  45%  { clip-path: inset(0 0 0 0); opacity: 1; }
+  88%  { clip-path: inset(0 0 0 0); opacity: 1; }
+  100% { clip-path: inset(0 0 0 0); opacity: 0; }
+}
+
 .meter span { display: grid; grid-template-columns: repeat(12, 1fr); gap: 3px; height: 14px; }
-.meter i { background: var(--idle); border-radius: 1px; }
+.meter i { background: var(--idle); border-radius: 1px; transition: background 0.3s ease; }
 .meter .base i.on { background: var(--muted); opacity: 0.45; }
 .meter .levi i.on { background: var(--accent); }
 
@@ -427,4 +440,5 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .grid span, .cluster figcaption span { transition: none; }
+  .tokens span, svg.viz { animation: none; }
 }
