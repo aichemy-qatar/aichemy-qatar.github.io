@@ -117,7 +117,7 @@ p { margin: 0; }
   padding: 0.6rem 1.1rem;
   background: var(--ink);
   color: var(--paper);
-  border-radius: 4px;
+  border-radius: 8px;
   text-decoration: none;
   font-size: 0.9375rem;
   font-weight: 500;
@@ -524,7 +524,7 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
   padding: 0.85rem 1.5rem;
   background: #fff;
   color: var(--ink);
-  border-radius: 4px;
+  border-radius: 8px;
   text-decoration: none;
   font-weight: 500;
 }
@@ -560,7 +560,15 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 /* Research and blog pages: the hero's type for the page title, then entries
    on the lighter surface. */
 
-.page-head h1 { max-width: none; }
+.page-head { padding-block: clamp(2.5rem, 6vw, 4rem) clamp(2rem, 4vw, 3rem); }
+
+.page-head h1 {
+  max-width: none;
+  font-size: clamp(2.25rem, 4.4vw, 3rem);
+  letter-spacing: -0.02em;
+}
+
+.page-head .lede { margin-top: 0.75rem; font-size: 1.125rem; }
 
 .entries { padding-block: var(--section); background: var(--surface); }
 
@@ -729,11 +737,25 @@ a.post-cover:hover { translate: 0 -3px; }
 .footer-cta h2 {
   margin: 0;
   color: #fff;
-  font-size: clamp(2rem, 4.2vw, 3rem);
+  font-size: clamp(1.75rem, 3.2vw, 2.25rem);
   font-weight: 300;
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
+
+.footer-cta p { margin-top: 0.75rem; max-width: 22rem; }
+
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1.75rem;
+}
+
+.footer-actions .button { margin-top: 0; }
+
+.footer-email { font-size: 0.9375rem; }
 
 .footer-col {
   display: flex;
