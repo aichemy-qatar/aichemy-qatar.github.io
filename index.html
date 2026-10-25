@@ -44,45 +44,46 @@
 
   <header class="site-header">
     <div class="nav wrap">
-      <a href="/#top" class="wordmark"><span class="mark" aria-hidden="true"></span>Alchemy</a>
+      <a href="#top" class="wordmark"><span class="mark" aria-hidden="true"></span>Alchemy</a>
       <nav class="nav-links" id="nav-links" aria-label="Main">
-        <a href="/#use-cases">Use cases</a>
-        <a href="/#how-it-works">How it works</a>
-        <a href="/#results">Results</a>
-        <a href="/#team">Team</a>
+        <a href="#results">Results</a>
+        <a href="/research/">Research</a>
+        <a href="/blog/">Blog</a>
+        <a href="/team/">Team</a>
       </nav>
-      <a class="nav-cta" href="/#contact">Work with us</a>
+      <a class="nav-cta" href="#contact">Work with us</a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-links" aria-label="Menu"><span></span><span></span></button>
     </div>
   </header>
 
   <main>
 
-    <section class="hero wrap">
-      <h1>AI that optimizes AI workloads.</h1>
-      <p class="lede">Automated optimization for AI workloads, running inside your own GPU cluster.</p>
-      <p class="engine">Powered by LEVI, our evolutionary search engine.</p>
-
+    <section class="home-hero wrap">
+      <div>
+        <h1>AI that optimizes AI workloads.</h1>
+        <p class="lede">Automated optimization for AI workloads, running inside your own GPU cluster.</p>
+        <div class="actions">
+          <a class="button ink" href="#contact">Work with us</a>
+          <a class="button ghost" href="#results">See results</a>
+        </div>
+        <p class="engine">Powered by LEVI, our evolutionary search engine.</p>
+      </div>
       <figure class="cluster" aria-label="A GPU cluster at half capacity, then nearly full with Alchemy">
         <div class="grid" id="grid"></div>
         <figcaption>
-          <span class="before">Typical cluster: half the capacity sits idle.</span>
+          <span class="before">Before Alchemy: capacity sits idle.</span>
           <span class="after">With Alchemy: the same GPUs do more work.</span>
         </figcaption>
       </figure>
     </section>
 
-    <section class="band">
-      <div class="wrap">
-        <p class="statement">83% of enterprises running their own GPUs use half their capacity or less. New GPUs take 36 to 52 weeks to arrive.</p>
-        <p class="source">Source: VentureBeat</p>
-      </div>
-    </section>
-
     <section class="uses" id="use-cases">
       <div class="wrap">
-        <div class="section-head">
-          <h2>Use cases</h2>
+        <div class="section-title split">
+          <div>
+            <p class="eyebrow">Use cases</p>
+            <h2>Faster inference, shorter training, fuller GPUs.</h2>
+          </div>
           <p class="legend" aria-hidden="true"><span class="key base"></span>Before<span class="key levi"></span>With Alchemy</p>
         </div>
         <div class="use-list">
@@ -110,7 +111,10 @@
 
     <section class="how" id="how-it-works">
       <div class="wrap">
-        <h2>How it works</h2>
+        <div class="section-title">
+          <p class="eyebrow">How it works</p>
+          <h2>LEVI tries thousands of changes and keeps the fastest.</h2>
+        </div>
         <div class="tree" id="tree" aria-hidden="true"></div>
         <ol class="process">
           <li>
@@ -131,8 +135,11 @@
 
     <section class="results" id="results">
       <div class="wrap">
-        <h2>Results</h2>
-        <p class="results-note">Measured on real workloads, against the setup each team was already running.</p>
+        <div class="section-title">
+          <p class="eyebrow">Results</p>
+          <h2>Measured on real workloads.</h2>
+          <p class="sub">Against the setup each team was already running.</p>
+        </div>
 
         <div class="speedups">
           <figure class="speedup">
@@ -159,36 +166,18 @@
           <div class="bench">
             <p class="rank">LEVI holds the top score on UC Berkeley's ADRS benchmarks</p>
             <p>Ahead of Sakana AI and Berkeley frameworks, at 3 to 7 times lower cost. The LEVI paper is accepted at the CAIS '26 workshop.</p>
+            <a class="more" href="/research/">Read the paper &rarr;</a>
           </div>
           <div class="cited">
             <p>LEVI is cited by researchers at</p>
             <div class="logos">
-              <img src="assets/berkeley.png" alt="UC Berkeley">
-              <img src="assets/mit.png" alt="MIT">
-              <img src="assets/cmu.png" alt="Carnegie Mellon University">
-              <img src="assets/ibm.png" alt="IBM">
+              <img src="/assets/berkeley.png" alt="UC Berkeley">
+              <img src="/assets/mit.png" alt="MIT">
+              <img src="/assets/cmu.png" alt="Carnegie Mellon University">
+              <img src="/assets/ibm.png" alt="IBM">
             </div>
           </div>
         </div>
-      </div>
-    </section>
-
-    <section class="team" id="team">
-      <div class="wrap">
-        <h2>Team</h2>
-        <div class="people">
-          <div class="person">
-            <img src="assets/temoor.jpg" alt="Temoor Ali">
-            <h3>Temoor Ali</h3>
-            <p>Built LEVI. First-author papers at NDSS and ESORICS. CMU Computer Science.</p>
-          </div>
-          <div class="person">
-            <img src="assets/ahmed.jpg" alt="Ahmed El Fekih">
-            <h3>Ahmed El Fekih</h3>
-            <p>AI researcher and systems engineer. CMU Computer Science.</p>
-          </div>
-        </div>
-        <p class="advisor">Advised by Dr. Ahmed Elmagarmid, Founding Executive Director of QCRI.</p>
       </div>
     </section>
 
@@ -203,24 +192,30 @@
         </div>
         <div class="footer-col">
           <p class="footer-label">Product</p>
-          <a href="/#use-cases">Use cases</a>
-          <a href="/#how-it-works">How it works</a>
-          <a href="/#results">Results</a>
+          <a href="#use-cases">Use cases</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#results">Results</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-label">Research</p>
+          <a href="/research/">LEVI paper</a>
+          <a href="/blog/">Blog</a>
+          <a href="https://github.com/ttanv/levi">GitHub</a>
         </div>
         <div class="footer-col">
           <p class="footer-label">Company</p>
-          <a href="/#team">Team</a>
+          <a href="/team/">Team</a>
           <a href="mailto:alchemyai.qatar@gmail.com">Contact</a>
         </div>
       </div>
       <div class="footer-base">
-        <a href="/#top" class="wordmark"><span class="mark" aria-hidden="true"></span>Alchemy</a>
+        <a href="#top" class="wordmark"><span class="mark" aria-hidden="true"></span>Alchemy</a>
         <span>&copy; 2026 Alchemy &middot; Doha, Qatar</span>
       </div>
     </div>
   </footer>
 
-  <script src="site.js"></script>
+  <script src="/site.js"></script>
   <script>
     // Cluster figure: 48 GPUs. Half busy, then Alchemy fills the idle ones and holds.
     const grid = document.getElementById('grid');

@@ -6,6 +6,7 @@
   --rule: #d8d9d4;
   --idle: #dfe0db;
   --accent: #7c5f25;
+  --brass-light: #d1a85a;
 
   --measure: 34rem;
   --gutter: clamp(1.25rem, 5vw, 3rem);
@@ -101,6 +102,12 @@ p { margin: 0; }
 
 .nav-links a:hover { color: var(--ink); }
 
+.nav-links a[aria-current="page"] {
+  color: var(--ink);
+  text-decoration: underline 2px var(--accent);
+  text-underline-offset: 0.55em;
+}
+
 .nav-cta {
   padding: 0.6rem 1.1rem;
   background: var(--ink);
@@ -143,7 +150,7 @@ p { margin: 0; }
 .open .menu-toggle span:first-child { transform: translateY(3.75px) rotate(45deg); }
 .open .menu-toggle span:last-child { transform: translateY(-3.75px) rotate(-45deg); }
 
-/* Hero */
+/* Page titles: the big light headline that the inner pages open with. */
 
 .hero { padding-block: clamp(3rem, 8vw, 5.5rem) var(--section); }
 
@@ -168,31 +175,61 @@ p { margin: 0; }
   color: var(--accent);
 }
 
-/* Cluster figure */
+/* Homepage hero: the pitch on the left, the cluster on the right. */
 
-.cluster { margin: clamp(2.5rem, 5vw, 3.5rem) 0 0; }
+.home-hero {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: center;
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(3rem, 6vw, 4.5rem);
+}
+
+.home-hero h1 {
+  font-size: clamp(2.5rem, 4.4vw, 3.6rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.home-hero .lede { margin-top: 1.5rem; }
+.home-hero .engine { margin-top: 1.5rem; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+.actions .button { margin-top: 0; }
+
+/* Cluster figure: 48 GPUs on a dark panel; the script fills the idle ones in brass. */
+
+.cluster {
+  margin: 0;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--ink);
+  border-radius: 10px;
+  box-shadow: 0 30px 60px -30px rgb(28 30 33 / 0.6);
+  color: #fff;
+}
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(16, 1fr);
-  gap: 6px;
-  max-width: 40rem;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 7px;
 }
 
 .grid span {
   aspect-ratio: 1;
-  border-radius: 2px;
-  background: var(--idle);
+  border-radius: 3px;
+  background: #2c2f34;
   transition: background-color 0.5s ease;
 }
 
-.grid span.busy { background: var(--ink); }
-.grid span.gained { background: var(--accent); }
+.grid span.busy { background: #e6e6e1; }
+.grid span.gained { background: var(--brass-light); }
 
 .cluster figcaption {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
   font-size: 0.9375rem;
-  color: var(--muted);
+  color: rgb(255 255 255 / 0.6);
   display: grid;
 }
 
@@ -201,38 +238,38 @@ p { margin: 0; }
 .cluster.done .before { opacity: 0; }
 .cluster.done .after { opacity: 1; }
 
-/* Statement band */
+/* Sections open with a small brass label, then a real headline. Use cases sit
+   on the lighter surface, How it works on dark, Results on the paper. */
 
-.band { padding-block: var(--section); }
+.uses, .how, .results { padding-block: var(--section); }
 
-/* Sections alternate between the paper and a lighter surface, edge to edge,
-   instead of being split by rules. */
-.band, .how, .team { background: var(--surface); }
+.uses { background: var(--surface); }
 
-.statement {
-  font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+.eyebrow { margin: 0; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em; color: var(--accent); }
+
+.section-title { margin-bottom: clamp(2rem, 4vw, 3rem); }
+
+.section-title h2 {
+  margin: 0.6rem 0 0;
+  max-width: 22ch;
+  font-size: clamp(1.875rem, 3.6vw, 2.75rem);
   font-weight: 300;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  max-width: 26ch;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
-.source { margin-top: 1.5rem; font-size: 0.875rem; color: var(--muted); }
+.section-title .sub { margin-top: 0.9rem; max-width: var(--measure); color: var(--muted); }
 
-/* Use cases */
-
-.uses, .how, .results, .team { padding-block: var(--section); }
-
-.section-head {
+/* With a legend on the right of the headline. */
+.section-title.split {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 2rem;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem 2rem;
 }
 
-.section-head h2 { margin-bottom: 0; }
+/* Use cases: white cards. */
 
 .legend {
   display: flex;
@@ -249,8 +286,10 @@ p { margin: 0; }
 .use-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: 1.25rem;
 }
+
+.use { padding: clamp(1.5rem, 3vw, 2rem); background: #fff; border-radius: 8px; }
 
 /* Each use case opens with a small illustrative chart: grey is before, brass is with LEVI. */
 .viz {
@@ -299,20 +338,23 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .use p { margin-top: 0.5rem; color: var(--muted); max-width: 22rem; }
 
-/* How it works: a trunk, then a search that branches, drops dead ends,
+/* How it works, on dark: a trunk, then a search that branches, drops dead ends,
    and converges on the fastest version at the right edge of the page. */
+
+.how { background: var(--ink); color: #fff; }
+.how .eyebrow { color: var(--brass-light); }
 
 .tree { height: 150px; margin-bottom: 2rem; }
 .tree svg { display: block; overflow: visible; }
 .tree path, .tree line { fill: none; }
-.tree .trunk { stroke: var(--ink); stroke-width: 1.25; }
-.tree .try { stroke: var(--muted); stroke-width: 1; stroke-opacity: 0.45; transition: stroke 0.4s ease, stroke-width 0.4s ease, stroke-opacity 0.4s ease; }
+.tree .trunk { stroke: rgb(255 255 255 / 0.85); stroke-width: 1.25; }
+.tree .try { stroke: #fff; stroke-width: 1; stroke-opacity: 0.28; transition: stroke 0.4s ease, stroke-width 0.4s ease, stroke-opacity 0.4s ease; }
 .tree .try.grow { transition: stroke-dashoffset 0.5s ease-out, stroke 0.4s ease, stroke-width 0.4s ease, stroke-opacity 0.4s ease; }
-.tree .try.win { stroke: var(--accent); stroke-width: 1.75; stroke-opacity: 1; }
-.tree .dead { fill: var(--muted); opacity: 0.55; transition: opacity 0.3s ease; }
+.tree .try.win { stroke: var(--brass-light); stroke-width: 1.75; stroke-opacity: 1; }
+.tree .dead { fill: #fff; opacity: 0.45; transition: opacity 0.3s ease; }
 .tree .dead.hidden { opacity: 0; }
-.tree .node { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; transition: fill 0.4s ease, stroke 0.4s ease; }
-.tree .node.end { fill: var(--accent); stroke: var(--accent); }
+.tree .node { fill: var(--ink); stroke: #fff; stroke-width: 1.5; transition: fill 0.4s ease, stroke 0.4s ease; }
+.tree .node.end { fill: var(--brass-light); stroke: var(--brass-light); }
 
 .process {
   list-style: none;
@@ -324,17 +366,12 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 }
 
 .process h3 { display: flex; gap: 0.75rem; }
-.process .step { color: var(--accent); font-weight: 400; font-variant-numeric: tabular-nums; }
-.process p { margin-top: 0.5rem; color: var(--muted); max-width: 22rem; }
+.process .step { color: var(--brass-light); font-weight: 400; font-variant-numeric: tabular-nums; }
+.process p { margin-top: 0.5rem; color: rgb(255 255 255 / 0.62); max-width: 22rem; }
 
 /* Results */
 
-.results h2 { margin-bottom: 0.75rem; }
-
-.results-note { color: var(--muted); max-width: var(--measure); }
-
 .speedups {
-  margin-top: 2.25rem;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
@@ -422,32 +459,6 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .logos img[alt="Carnegie Mellon University"] { height: 42px; }
 .logos img[alt="MIT"] { height: 24px; }
 
-/* Team */
-
-.people {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
-}
-
-.person img {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1.25rem;
-}
-
-.person p { margin-top: 0.5rem; color: var(--muted); max-width: 24rem; }
-
-.advisor {
-  margin-top: 2.5rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--paper);
-  border-radius: 6px;
-  color: var(--muted);
-}
-
 .button {
   display: inline-block;
   margin-top: 1.75rem;
@@ -464,11 +475,153 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .button.ink { background: var(--ink); color: var(--paper); }
 .button.ink:hover { background: var(--accent); }
 
+.button.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px rgb(28 30 33 / 0.28); }
+.button.ghost:hover { background: rgb(28 30 33 / 0.05); }
+
 /* Not-found page: the hero's type, with room for the footer to sit low. */
 
 .notfound { min-height: 62vh; }
 .notfound .code { margin-bottom: 1rem; color: var(--accent); font-size: 0.9375rem; }
 .notfound .button { margin-top: 2.25rem; }
+
+.more {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.more:hover { color: var(--accent); }
+
+/* Links that leave the site carry a small arrow. */
+.ext::after { content: "\2197" / ""; margin-left: 0.3em; font-size: 0.85em; }
+
+/* Research and blog pages: the hero's type for the page title, then entries
+   on the lighter surface. */
+
+.page-head h1 { max-width: none; }
+
+.entries { padding-block: var(--section); background: var(--surface); }
+
+.entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.6rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.entry-meta .kind { color: var(--accent); font-weight: 500; }
+.entry-meta > * + *::before { content: "\00B7"; margin-right: 0.6rem; }
+
+.entry-title {
+  margin: 0.9rem 0 0;
+  font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  max-width: 30ch;
+}
+
+.entry-title a { text-decoration: none; }
+.entry-title a:hover { text-decoration: underline 1px var(--accent); text-underline-offset: 0.15em; }
+
+.entry-text { margin-top: 1rem; max-width: 40rem; color: var(--muted); }
+
+/* An entry: a picture that links to it, with the details beside it. */
+
+.entry {
+  display: grid;
+  grid-template-columns: var(--cover, 17rem) 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+
+/* A paper's picture is its first page, sitting on a second sheet like a printed copy. */
+
+.paper-cover { position: relative; display: block; margin: 0 8px 8px 0; }
+
+.paper-cover::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  translate: 8px 8px;
+  background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgb(28 30 33 / 0.12);
+}
+
+.paper-cover img {
+  position: relative;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgb(28 30 33 / 0.12), 0 18px 36px -18px rgb(28 30 33 / 0.35);
+  transition: translate 0.25s ease;
+}
+
+.paper-cover:hover img { translate: 0 -3px; }
+
+.paper-cited { margin-top: 1.75rem; font-size: 0.875rem; color: var(--muted); }
+
+.paper-cited ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.paper-cited li + li::before { content: "\00B7"; margin-right: 0.75rem; color: var(--muted); }
+
+.paper-links { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; margin-top: 1.75rem; }
+.paper-links .more { margin-top: 0; }
+
+/* Blog: a post's picture is its cover art, wider than a paper's page. */
+
+.post-list { display: grid; gap: var(--section); margin: 0; padding: 0; list-style: none; }
+
+.post { --cover: 30rem; align-items: center; }
+
+.post-cover {
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgb(28 30 33 / 0.12), 0 18px 36px -18px rgb(28 30 33 / 0.45);
+  transition: translate 0.25s ease;
+}
+
+.post-cover:hover { translate: 0 -3px; }
+.post-cover img { display: block; width: 100%; height: auto; }
+
+/* Team: a white card per person, with links to their profiles. */
+
+.members { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+
+.member { padding: clamp(1.5rem, 3vw, 2.25rem); background: #fff; border-radius: 8px; }
+
+.member img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; }
+
+.member h2 {
+  margin: 1.25rem 0 0;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+}
+
+.member p { margin-top: 0.5rem; max-width: 26rem; color: var(--muted); }
+
+.member .member-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; margin-top: 1.25rem; color: var(--ink); }
+.member-links .more { margin-top: 0; }
+
+.advisor-card { margin-top: 1.25rem; }
+.advisor-card .role { margin: 0; font-size: 0.875rem; font-weight: 500; color: var(--accent); }
+.advisor-card h2 { margin-top: 0.5rem; }
 
 /* Footer: the contact call and the site links in one dark block. */
 
@@ -484,8 +637,8 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .footer-main {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  column-gap: clamp(3rem, 8vw, 6rem);
+  grid-template-columns: 1fr auto auto auto;
+  column-gap: clamp(2.5rem, 6vw, 5rem);
   row-gap: 2.5rem;
 }
 
@@ -553,13 +706,18 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 /* Small screens */
 
+@media (max-width: 900px) {
+  .home-hero { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 720px) {
   .footer-main { grid-template-columns: 1fr 1fr; }
   .footer-cta { grid-column: 1 / -1; }
-  .people { grid-template-columns: 1fr; gap: 2.5rem; }
-  .use-list, .process { grid-template-columns: 1fr; gap: 2.5rem; }
-  .tree { height: 150px; }
-  .grid { grid-template-columns: repeat(12, 1fr); gap: 5px; }
+  .entry { grid-template-columns: 1fr; }
+  .members { grid-template-columns: 1fr; }
+  .paper-cover { width: min(14rem, 70%); }
+  .use-list { grid-template-columns: 1fr; }
+  .process { grid-template-columns: 1fr; gap: 2.5rem; }
   .speedups, .research { grid-template-columns: 1fr; gap: 3rem; }
   .logos { gap: 1.5rem 1.75rem; }
   .logos img { height: 22px; }
