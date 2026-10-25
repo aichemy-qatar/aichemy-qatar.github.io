@@ -58,23 +58,27 @@
 
   <main>
 
-    <section class="home-hero wrap">
-      <div>
-        <h1>AI that optimizes AI workloads.</h1>
-        <p class="lede">Automated optimization for AI workloads, running inside your own GPU cluster.</p>
-        <div class="actions">
-          <a class="button ink" href="#contact">Work with us</a>
-          <a class="button ghost" href="#results">See results</a>
+    <section class="home-hero">
+      <div class="stage">
+        <div class="wrap stage-grid">
+          <div>
+            <h1>AI that optimizes AI workloads.</h1>
+            <p class="lede">Automated optimization for AI workloads, running inside your own GPU cluster.</p>
+            <div class="actions">
+              <a class="button" href="#contact">Work with us</a>
+              <a class="button ghost" href="#results">See results</a>
+            </div>
+            <p class="engine">Powered by LEVI, our evolutionary search engine.</p>
+          </div>
+          <figure class="cluster" aria-label="A GPU cluster at half capacity, then nearly full with Alchemy">
+            <div class="grid" id="grid"></div>
+            <figcaption>
+              <span class="before">Before Alchemy: capacity sits idle.</span>
+              <span class="after">With Alchemy: the same GPUs do more work.</span>
+            </figcaption>
+          </figure>
         </div>
-        <p class="engine">Powered by LEVI, our evolutionary search engine.</p>
       </div>
-      <figure class="cluster" aria-label="A GPU cluster at half capacity, then nearly full with Alchemy">
-        <div class="grid" id="grid"></div>
-        <figcaption>
-          <span class="before">Before Alchemy: capacity sits idle.</span>
-          <span class="after">With Alchemy: the same GPUs do more work.</span>
-        </figcaption>
-      </figure>
     </section>
 
     <section class="uses" id="use-cases">
@@ -187,21 +191,31 @@
             <figcaption>One H100. Every user above 50 tokens per second.</figcaption>
           </figure>
         </div>
+      </div>
+    </section>
 
-        <div class="research">
-          <div class="bench">
-            <p class="rank">LEVI holds the top score on UC Berkeley's ADRS benchmarks</p>
-            <p>Ahead of Sakana AI and Berkeley frameworks, at 3 to 7 times lower cost. The LEVI paper is accepted at the CAIS '26 workshop.</p>
-            <a class="more" href="/research/">Read the paper &rarr;</a>
-          </div>
-          <div class="cited">
-            <p>LEVI is cited by researchers at</p>
-            <div class="logos">
-              <img src="/assets/berkeley.png" alt="UC Berkeley">
-              <img src="/assets/mit.png" alt="MIT">
-              <img src="/assets/cmu.png" alt="Carnegie Mellon University">
-              <img src="/assets/ibm.png" alt="IBM">
+    <section class="research-band" id="research">
+      <div class="wrap">
+        <div class="section-title">
+          <p class="eyebrow">Research</p>
+          <h2>Built on published research.</h2>
+        </div>
+        <div class="entry paper-feature">
+          <a class="paper-cover" href="/research/" tabindex="-1" aria-hidden="true"><img src="/assets/levi-paper.jpg" width="640" height="828" alt=""></a>
+          <div>
+            <p class="entry-meta"><span class="kind">Paper</span><span>May 2026</span><span>CAIS '26 workshop</span></p>
+            <h3 class="entry-title"><a href="/research/">LEVI: Stronger Search Architectures Can Substitute for Larger LLMs in Evolutionary Search</a></h3>
+            <p class="entry-text">LEVI reaches the highest score on systems-research benchmarks with a 3.3&ndash;6.7&times; smaller budget than ShinkaEvolve, GEPA and AdaEvolve.</p>
+            <div class="cited">
+              <p>Cited by researchers at</p>
+              <div class="logos">
+                <img src="/assets/berkeley.png" alt="UC Berkeley">
+                <img src="/assets/mit.png" alt="MIT">
+                <img src="/assets/cmu.png" alt="Carnegie Mellon University">
+                <img src="/assets/ibm.png" alt="IBM">
+              </div>
             </div>
+            <a class="more ext" href="https://arxiv.org/abs/2605.09764">Read the paper</a>
           </div>
         </div>
       </div>
