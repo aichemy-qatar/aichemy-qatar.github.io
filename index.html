@@ -48,7 +48,7 @@
       <nav class="nav-links" id="nav-links" aria-label="Main">
         <a href="#results">Results</a>
         <a href="/research/">Research</a>
-        <a href="/blog/">Blog</a>
+        <a href="/blog/">Blogs</a>
         <a href="/team/">Team</a>
       </nav>
       <a class="nav-cta" href="#contact">Work with us</a>
@@ -138,27 +138,53 @@
         <div class="section-title">
           <p class="eyebrow">Results</p>
           <h2>Measured on real workloads.</h2>
-          <p class="sub">Against the setup each team was already running.</p>
+          <p class="sub">Same model and GPU before and after, with the model&rsquo;s outputs unchanged.</p>
         </div>
 
-        <div class="speedups">
-          <figure class="speedup">
+        <div class="result">
+          <div class="result-copy">
             <p class="who">Fanar 2.0, QCRI</p>
             <p class="gain">1.8&times;</p>
-            <p class="what">Faster LLM serving, same outputs</p>
-            <div class="bars" role="img" aria-label="Serving speed: 1.0 times before, 1.8 times with Alchemy">
-              <span class="label">Before</span><span class="track"><span class="bar base" style="--v: 1"></span></span><span class="val">1.0&times;</span>
-              <span class="label">Alchemy</span><span class="track"><span class="bar levi" style="--v: 1.8"></span></span><span class="val">1.8&times;</span>
+            <p class="what">Faster answers</p>
+            <p class="detail">46 to 84 tokens per second on one H100.</p>
+          </div>
+          <figure class="demo race" aria-label="The same answer streamed at 46 tokens per second before and 84 with Alchemy">
+            <p class="race-prompt">Plan a day in Doha.</p>
+            <div class="panes" aria-hidden="true">
+              <div class="pane" data-tps="46.2">
+                <p class="pane-head"><span>Before</span><span>46 tok/s</span></p>
+                <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
+                <p class="pane-foot">2.4 s</p>
+              </div>
+              <div class="pane levi" data-tps="84.3">
+                <p class="pane-head"><span>With Alchemy</span><span>84 tok/s</span></p>
+                <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
+                <p class="pane-foot">1.3 s</p>
+              </div>
             </div>
+            <figcaption>Simulated at the measured speeds.</figcaption>
           </figure>
-          <figure class="speedup">
-            <p class="who">Medical AI</p>
-            <p class="gain">1.25&times;</p>
-            <p class="what">Faster RL training, same results</p>
-            <div class="bars" role="img" aria-label="Training speed: 1.0 times before, 1.25 times with Alchemy">
-              <span class="label">Before</span><span class="track"><span class="bar base" style="--v: 1"></span></span><span class="val">1.0&times;</span>
-              <span class="label">Alchemy</span><span class="track"><span class="bar levi" style="--v: 1.25"></span></span><span class="val">1.25&times;</span>
+        </div>
+
+        <div class="result">
+          <div class="result-copy">
+            <p class="who">Qwen3.8-27B, reasoning chat</p>
+            <p class="gain">2&times;</p>
+            <p class="what">More users per GPU</p>
+            <p class="detail">22 to 44 users on one H100, each above 50 tokens per second.</p>
+          </div>
+          <figure class="demo seats-demo" aria-label="One H100 serving 22 users before and 44 with Alchemy, each above 50 tokens per second">
+            <div class="panes" aria-hidden="true">
+              <div class="pane" data-users="22">
+                <p class="pane-head"><span>Before</span><span class="count">22 users</span></p>
+                <div class="seats"></div>
+              </div>
+              <div class="pane levi" data-users="44">
+                <p class="pane-head"><span>With Alchemy</span><span class="count">44 users</span></p>
+                <div class="seats"></div>
+              </div>
             </div>
+            <figcaption>One H100. Every user above 50 tokens per second.</figcaption>
           </figure>
         </div>
 
@@ -199,7 +225,7 @@
         <div class="footer-col">
           <p class="footer-label">Research</p>
           <a href="/research/">LEVI paper</a>
-          <a href="/blog/">Blog</a>
+          <a href="/blog/">Blogs</a>
           <a href="https://github.com/ttanv/levi">GitHub</a>
         </div>
         <div class="footer-col">
@@ -406,6 +432,78 @@
     if (!reduce) onView(tree,
       () => { grown = true; current = makeTree(); drawTree(current, 'grow'); },
       () => drawTree(current, 'wait'));
+
+    // Results, Fanar 2.0: one answer streams into both panes at the measured
+    // speeds (46.2 and 84.3 tokens/s, counting a word as 1.3 tokens), and each
+    // pane's timer stops when its answer is done. A hidden copy of the full
+    // answer holds each pane at its final height while the text streams in.
+    const race = document.querySelector('.race');
+    const answer = race.querySelector('.pane-text').textContent;
+    const words = answer.match(/\s*\S+/g);
+    const lanes = [...race.querySelectorAll('.pane')].map(pane => {
+      const ghost = pane.querySelector('.pane-body').appendChild(document.createElement('p'));
+      ghost.className = 'ghost';
+      ghost.textContent = answer;
+      return {
+        text: pane.querySelector('.pane-text'),
+        time: pane.querySelector('.pane-foot'),
+        ms: words.length * 1.3 / +pane.dataset.tps * 1000,
+      };
+    });
+    const showLane = (lane, t) => {
+      lane.text.textContent = words.slice(0, Math.round(t * words.length)).join('');
+      lane.time.textContent = (t * lane.ms / 1000).toFixed(1) + ' s';
+    };
+    let raceFrame;
+    const runRace = () => {
+      const start = performance.now();
+      const tick = now => {
+        let running = false;
+        lanes.forEach(lane => {
+          const t = Math.min(1, (now - start) / lane.ms);
+          showLane(lane, t);
+          running = running || t < 1;
+        });
+        if (running) raceFrame = requestAnimationFrame(tick);
+      };
+      raceFrame = requestAnimationFrame(tick);
+    };
+    const resetRace = () => {
+      cancelAnimationFrame(raceFrame);
+      lanes.forEach(lane => showLane(lane, 0));
+    };
+    if (!reduce) {
+      resetRace();
+      onView(race, runRace, resetRace);
+    }
+
+    // Results, Qwen3.8-27B: each seat is a concurrent user on one H100. Both
+    // panes fill in step; stock stops at 22 while Alchemy carries on to 44,
+    // its extra users in brass.
+    const seatsDemo = document.querySelector('.seats-demo');
+    const seatPanes = [...seatsDemo.querySelectorAll('.pane')].map(pane => {
+      const seats = [];
+      for (let i = 0; i < 44; i++) seats.push(pane.querySelector('.seats').appendChild(document.createElement('i')));
+      return { seats, users: +pane.dataset.users, count: pane.querySelector('.count') };
+    });
+    const showSeats = (pane, n) => {
+      pane.seats.forEach((seat, i) => { seat.className = i >= n ? '' : i < 22 ? 'on' : 'on gained'; });
+      pane.count.textContent = n + ' users';
+    };
+    let seatTimers = [];
+    const fillSeats = () => seatPanes.forEach(pane => {
+      for (let n = 1; n <= pane.users; n++) seatTimers.push(setTimeout(() => showSeats(pane, n), 45 * n));
+    });
+    const clearSeats = () => {
+      seatTimers.forEach(clearTimeout);
+      seatTimers = [];
+      seatPanes.forEach(pane => showSeats(pane, 0));
+    };
+    if (reduce) seatPanes.forEach(pane => showSeats(pane, pane.users));
+    else {
+      clearSeats();
+      onView(seatsDemo, fillSeats, clearSeats);
+    }
   </script>
 </body>
 </html>

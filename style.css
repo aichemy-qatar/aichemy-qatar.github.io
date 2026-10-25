@@ -369,15 +369,16 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .process .step { color: var(--brass-light); font-weight: 400; font-variant-numeric: tabular-nums; }
 .process p { margin-top: 0.5rem; color: rgb(255 255 255 / 0.62); max-width: 22rem; }
 
-/* Results */
+/* Results: each one a number on the left and a demo on the right. */
 
-.speedups {
+.result {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
+  grid-template-columns: 15rem 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
 }
 
-.speedup { margin: 0; }
+.result + .result { margin-top: clamp(3rem, 6vw, 4.5rem); }
 
 .who { font-size: 0.9375rem; color: var(--muted); }
 
@@ -392,31 +393,82 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .what { margin-top: 0.75rem; font-weight: 500; }
 
-/* Both charts share one scale, 0 to 1.8x, so bar lengths compare across them. */
-.bars {
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: 4.25rem 1fr 3rem;
-  align-items: center;
-  gap: 0.6rem 1rem;
+.detail { margin-top: 0.5rem; color: var(--muted); }
+
+/* A demo is a dark screen with two panes, before and with Alchemy, like the
+   cluster in the hero: white for what was there, brass for what Alchemy adds. */
+
+.demo {
+  margin: 0;
+  padding: clamp(1rem, 2.5vw, 1.5rem);
+  background: var(--ink);
+  border-radius: 10px;
+  box-shadow: 0 30px 60px -30px rgb(28 30 33 / 0.6);
+  color: #fff;
+}
+
+.panes { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: #25282c;
+  border-radius: 8px;
+}
+
+.pane.levi { box-shadow: inset 0 0 0 1px rgb(209 168 90 / 0.55); }
+
+.pane-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.pane.levi .pane-head span:last-child { color: var(--brass-light); }
+
+.demo figcaption { margin-top: 0.9rem; font-size: 0.8125rem; color: rgb(255 255 255 / 0.5); }
+
+/* Fanar: the answer streams in over a hidden full copy, so the pane never jumps. */
+
+.race-prompt {
+  width: fit-content;
+  margin: 0 0 0.9rem auto;
+  padding: 0.4rem 0.8rem;
+  background: #2c2f34;
+  border-radius: 10px;
   font-size: 0.875rem;
+}
+
+.pane-body { display: grid; flex: 1; font-size: 0.8125rem; line-height: 1.55; color: rgb(255 255 255 / 0.85); }
+.pane-body > * { grid-area: 1 / 1; }
+.pane-body .ghost { visibility: hidden; }
+
+.pane-foot {
+  margin-top: 0.75rem;
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.6);
   font-variant-numeric: tabular-nums;
 }
 
-.bars .label { color: var(--muted); }
-.bars .val { text-align: right; }
+.pane.levi .pane-foot { color: var(--brass-light); }
 
-.track { display: block; height: 10px; }
+/* Qwen: one seat per concurrent user. */
 
-.bar {
-  display: block;
-  height: 100%;
-  width: calc(var(--v) / 1.8 * 100%);
-  border-radius: 0 4px 4px 0;
+.seats { display: grid; grid-template-columns: repeat(11, 1fr); gap: 7px; }
+
+.seats i {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #33363b;
+  transition: background-color 0.3s ease;
 }
 
-.bar.base { background: var(--idle); box-shadow: inset 0 0 0 1px var(--rule); }
-.bar.levi { background: var(--accent); }
+.seats i.on { background: #e6e6e1; }
+.seats i.gained { background: var(--brass-light); }
 
 .research {
   margin-top: 3rem;
@@ -596,8 +648,32 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
   transition: translate 0.25s ease;
 }
 
-.post-cover:hover { translate: 0 -3px; }
+a.post-cover:hover { translate: 0 -3px; }
+
+/* A figure from the post itself, on white with room around it. */
+.post-cover.framed { padding: 1rem 1.25rem; background: #fff; }
 .post-cover img { display: block; width: 100%; height: auto; }
+
+/* Coming soon: smaller cards under the latest post, not yet linked. */
+
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: var(--section) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-card .entry-meta { margin-top: 1.25rem; }
+
+.post-card-title {
+  margin: 0.5rem 0 0;
+  font-size: 1.375rem;
+  font-weight: 300;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
 
 /* Team: a white card per person, with links to their profiles. */
 
@@ -714,11 +790,12 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
   .footer-main { grid-template-columns: 1fr 1fr; }
   .footer-cta { grid-column: 1 / -1; }
   .entry { grid-template-columns: 1fr; }
-  .members { grid-template-columns: 1fr; }
+  .members, .post-grid { grid-template-columns: 1fr; }
   .paper-cover { width: min(14rem, 70%); }
   .use-list { grid-template-columns: 1fr; }
   .process { grid-template-columns: 1fr; gap: 2.5rem; }
-  .speedups, .research { grid-template-columns: 1fr; gap: 3rem; }
+  .result, .research { grid-template-columns: 1fr; gap: 2rem; }
+  .race .panes { grid-template-columns: 1fr; }
   .logos { gap: 1.5rem 1.75rem; }
   .logos img { height: 22px; }
   .logos img[alt="Carnegie Mellon University"] { height: 34px; }
