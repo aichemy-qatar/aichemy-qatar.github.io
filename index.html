@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Alchemy &ndash; AI that optimizes AI workloads</title>
-  <meta name="description" content="Alchemy is AI that optimizes AI workloads, running inside your own GPU cluster. Powered by LEVI, our evolutionary search engine.">
+  <title>Alchemy &ndash; Get the most out of your GPUs</title>
+  <meta name="description" content="Alchemy makes AI inference and training run faster on the GPUs you already own, with the same models and the same outputs.">
   <meta name="theme-color" content="#eeefec">
+  <script>document.documentElement.classList.add('js');</script>
 
   <!-- Link previews (LinkedIn, Slack, WhatsApp, X) need absolute URLs:
        update these four if the site moves to its own domain. -->
@@ -14,11 +15,11 @@
   <meta property="og:image" content="https://aichemy-qatar.github.io/assets/og.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Alchemy">
-  <meta property="og:title" content="Alchemy &ndash; AI that optimizes AI workloads">
-  <meta property="og:description" content="Automated optimization for AI workloads, running inside your own GPU cluster. Powered by LEVI, our evolutionary search engine.">
+  <meta property="og:title" content="Alchemy &ndash; Get the most out of your GPUs">
+  <meta property="og:description" content="Alchemy makes AI inference and training run faster on the GPUs you already own, with the same models and the same outputs.">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Alchemy: AI that optimizes AI workloads.">
+  <meta property="og:image:alt" content="Alchemy: Get the most out of your GPUs.">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">
     {
@@ -37,10 +38,10 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261026">
 </head>
-<body>
+<body class="home">
 
   <header class="site-header">
     <div class="nav wrap">
@@ -58,45 +59,40 @@
 
   <main>
 
-    <section class="home-hero">
-      <div class="stage">
-        <div class="wrap stage-grid">
-          <div>
-            <h1>AI that optimizes AI workloads.</h1>
-            <p class="lede">Automated optimization for AI workloads, running inside your own GPU cluster.</p>
-            <div class="actions">
-              <a class="button" href="#contact">Work with us</a>
-              <a class="button ghost" href="#results">See results</a>
-            </div>
-            <p class="engine">Powered by LEVI, our evolutionary search engine.</p>
-          </div>
-          <figure class="cluster" aria-label="A GPU cluster at half capacity, then nearly full with Alchemy">
-            <div class="grid" id="grid"></div>
-            <figcaption>
-              <span class="before">Before Alchemy: capacity sits idle.</span>
-              <span class="after">With Alchemy: the same GPUs do more work.</span>
-            </figcaption>
-          </figure>
+    <section class="hero-x">
+      <div class="wrap hero-x-copy">
+        <h1>Get the most out of your GPUs.</h1>
+        <p class="lede">Alchemy makes AI inference and training run faster on the GPUs you already own, with the same models and the same outputs.</p>
+        <div class="actions">
+          <a class="button" href="#contact">Work with us</a>
+          <a class="button ghost" href="#results">See results</a>
         </div>
       </div>
+      <figure class="fleet" aria-label="A GPU cluster with half its capacity idle, then nearly full with Alchemy">
+        <div class="fleet-grid" aria-hidden="true"></div>
+        <figcaption>
+          <span class="before">Before Alchemy: capacity sits idle.</span>
+          <span class="after">With Alchemy: the same GPUs do more work.</span>
+        </figcaption>
+      </figure>
     </section>
 
     <section class="uses" id="use-cases">
       <div class="wrap">
-        <div class="section-title split">
+        <div class="section-title split reveal">
           <div>
-            <p class="eyebrow">Use cases</p>
+            <p class="eyebrow">01 &middot; Use cases</p>
             <h2>Faster inference, shorter training, fuller GPUs.</h2>
           </div>
           <p class="legend" aria-hidden="true"><span class="key base"></span>Before<span class="key levi"></span>With Alchemy</p>
         </div>
         <div class="use-list">
-          <div class="use">
+          <div class="use reveal">
             <div class="viz tokens" aria-hidden="true"><span class="base"></span><span class="levi"></span></div>
             <h3>LLM inference</h3>
             <p>Faster generation for chat, search and agents.</p>
           </div>
-          <div class="use">
+          <div class="use reveal">
             <svg class="viz" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true">
               <path class="base" d="M0 8.0 L6 9.7 L12 11.4 L18 13.0 L24 14.5 L30 16.0 L36 17.4 L42 18.7 L48 20.0 L54 21.3 L60 22.5 L66 23.7 L72 24.8 L78 25.8 L84 26.9 L90 27.9 L96 28.8 L102 29.7 L108 30.6 L114 31.4 L120 32.2 L126 33.0 L132 33.7 L138 34.5 L144 35.2 L150 35.8 L156 36.4 L162 37.1 L168 37.6 L174 38.2 L180 38.7 L186 39.3 L192 39.8 L198 40.2 L204 40.7 L210 41.1 L216 41.6 L222 42.0 L228 42.4 L234 42.8 L240 43.1"/>
               <path class="levi" d="M0 8.0 L6 14.4 L12 19.9 L18 24.6 L24 28.6 L30 32.0 L36 34.9 L42 37.4 L48 39.6 L54 41.4 L60 42.9 L66 44.3 L72 45.4 L78 46.4 L84 47.2 L90 47.9 L96 48.5 L102 49.0 L108 49.4 L114 49.8 L120 50.1 L126 50.4 L132 50.6 L138 50.8 L144 51.0 L150 51.2 L156 51.3 L162 51.4 L168 51.5 L174 51.5 L180 51.6 L186 51.7 L192 51.7 L198 51.8 L204 51.8 L210 51.8 L216 51.9 L222 51.9 L228 51.9 L234 51.9 L240 51.9"/>
@@ -104,7 +100,7 @@
             <h3>AI training</h3>
             <p>Shorter reinforcement learning and fine-tuning runs.</p>
           </div>
-          <div class="use">
+          <div class="use reveal">
             <div class="viz meter" aria-hidden="true"><span class="base" data-on="6"></span><span class="levi" data-on="11"></span></div>
             <h3>GPU utilization</h3>
             <p>More work from the GPUs you already own.</p>
@@ -115,22 +111,46 @@
 
     <section class="how" id="how-it-works">
       <div class="wrap">
-        <div class="section-title">
-          <p class="eyebrow">How it works</p>
-          <h2>LEVI tries thousands of changes and keeps the fastest.</h2>
+        <div class="section-title reveal">
+          <p class="eyebrow">02 &middot; How it works</p>
+          <h2>LEVI evolves your stack and keeps only what&rsquo;s faster.</h2>
         </div>
-        <div class="tree" id="tree" aria-hidden="true"></div>
-        <ol class="process">
-          <li>
-            <h3><span class="step">1</span>Runs on your cluster</h3>
+        <ol class="steps">
+          <li class="step-card reveal">
+            <svg class="step-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <rect x="6" y="12" width="52" height="40" rx="6"/>
+              <rect x="14" y="20" width="10" height="10" rx="2"/>
+              <rect x="27" y="20" width="10" height="10" rx="2" class="on"/>
+              <rect x="40" y="20" width="10" height="10" rx="2"/>
+              <rect x="14" y="34" width="10" height="10" rx="2" class="on"/>
+              <rect x="27" y="34" width="10" height="10" rx="2"/>
+              <rect x="40" y="34" width="10" height="10" rx="2"/>
+            </svg>
+            <p class="step-num">01</p>
+            <h3>Runs on your cluster</h3>
             <p>A few hours on your own GPUs. No new models, no new hardware.</p>
           </li>
-          <li>
-            <h3><span class="step">2</span>LEVI tries thousands of changes</h3>
-            <p>It searches for faster versions of the code behind inference, voice and training workloads.</p>
+          <li class="step-card reveal">
+            <svg class="step-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <path d="M6 40 H18"/>
+              <path d="M18 40 C26 40 26 18 34 18"/>
+              <path d="M18 40 C26 40 26 50 34 50 C41 50 41 56 48 56"/>
+              <path class="hot" d="M18 40 C26 40 26 30 34 30 C45 30 45 22 56 22"/>
+              <circle class="dot" cx="34" cy="18" r="2.2"/>
+              <circle class="dot" cx="48" cy="56" r="2.2"/>
+              <circle class="on" cx="56" cy="22" r="3"/>
+            </svg>
+            <p class="step-num">02</p>
+            <h3>LEVI evolves your stack</h3>
+            <p>It proposes changes, learns from the ones that work and builds on them, from serving settings down to GPU kernels.</p>
           </li>
-          <li>
-            <h3><span class="step">3</span>Keeps the fastest</h3>
+          <li class="step-card reveal">
+            <svg class="step-icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle cx="32" cy="32" r="24"/>
+              <path class="hot" d="M21 33 L29 41 L44 24"/>
+            </svg>
+            <p class="step-num">03</p>
+            <h3>Keeps the fastest</h3>
             <p>Every change is verified to give the same outputs, and measured on your hardware.</p>
           </li>
         </ol>
@@ -139,13 +159,13 @@
 
     <section class="results" id="results">
       <div class="wrap">
-        <div class="section-title">
-          <p class="eyebrow">Results</p>
+        <div class="section-title reveal">
+          <p class="eyebrow">03 &middot; Results</p>
           <h2>Measured on real workloads.</h2>
           <p class="sub">Same model and GPU before and after, with the model&rsquo;s outputs unchanged.</p>
         </div>
 
-        <div class="result">
+        <div class="result reveal">
           <div class="result-copy">
             <p class="who">Fanar 2.0, QCRI</p>
             <p class="gain">1.8&times;</p>
@@ -170,12 +190,13 @@
           </figure>
         </div>
 
-        <div class="result">
+        <div class="result reveal">
           <div class="result-copy">
             <p class="who">Qwen3.8-27B, reasoning chat</p>
             <p class="gain">2&times;</p>
             <p class="what">More users per GPU</p>
             <p class="detail">22 to 44 users on one H100, each above 50 tokens per second.</p>
+            <p class="detail cost">Half the cost per million tokens.</p>
           </div>
           <figure class="demo seats-demo" aria-label="One H100 serving 22 users before and 44 with Alchemy, each above 50 tokens per second">
             <div class="panes" aria-hidden="true">
@@ -196,28 +217,57 @@
 
     <section class="research-band" id="research">
       <div class="wrap">
-        <div class="section-title">
-          <p class="eyebrow">Research</p>
+        <div class="section-title reveal">
+          <p class="eyebrow">04 &middot; Research</p>
           <h2>Built on published research.</h2>
         </div>
-        <div class="entry paper-feature">
+        <div class="entry paper-feature reveal">
           <a class="paper-cover" href="/research/" tabindex="-1" aria-hidden="true"><img src="/assets/levi-paper.jpg" width="640" height="828" alt=""></a>
           <div>
             <p class="entry-meta"><span class="kind">Paper</span><span>May 2026</span><span>CAIS '26 workshop</span></p>
             <h3 class="entry-title"><a href="/research/">LEVI: Stronger Search Architectures Can Substitute for Larger LLMs in Evolutionary Search</a></h3>
             <p class="entry-text">LEVI reaches the highest score on systems-research benchmarks with a 3.3&ndash;6.7&times; smaller budget than ShinkaEvolve, GEPA and AdaEvolve.</p>
             <div class="cited">
-              <p>Cited by researchers at</p>
+              <p>Used and cited by researchers at</p>
               <div class="logos">
+                <img src="/assets/stanford.png" alt="Stanford University">
+                <img src="/assets/nvidia.png" alt="NVIDIA">
+                <img src="/assets/meta.png" alt="Meta">
                 <img src="/assets/berkeley.png" alt="UC Berkeley">
                 <img src="/assets/mit.png" alt="MIT">
                 <img src="/assets/cmu.png" alt="Carnegie Mellon University">
-                <img src="/assets/ibm.png" alt="IBM">
               </div>
             </div>
             <a class="more ext" href="https://arxiv.org/abs/2605.09764">Read the paper</a>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="engage" id="working-with-us">
+      <div class="wrap">
+        <div class="section-title reveal">
+          <p class="eyebrow">05 &middot; Working with us</p>
+          <h2>From first message to a faster stack.</h2>
+          <p class="sub promise">You only pay if there&rsquo;s a measured improvement.</p>
+        </div>
+        <ol class="engage-steps reveal">
+          <li>
+            <p class="step-num">01</p>
+            <h3>Tell us what you run</h3>
+            <p>Your model, how you serve it, and which GPUs it runs on.</p>
+          </li>
+          <li>
+            <p class="step-num">02</p>
+            <h3>We run LEVI on your cluster</h3>
+            <p>A few hours on your own GPUs. Your models and data stay with you.</p>
+          </li>
+          <li>
+            <p class="step-num">03</p>
+            <h3>You keep the faster stack</h3>
+            <p>Every change is verified to give the same outputs, and it is yours to keep.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -228,7 +278,7 @@
       <div class="footer-main">
         <div class="footer-cta">
           <h2>Work with us</h2>
-          <p>Tell us what you run, and on which GPUs.</p>
+          <p>Tell us what you run. You only pay if there&rsquo;s a measured improvement.</p>
           <div class="footer-actions">
             <a class="button" href="mailto:alchemyai.qatar@gmail.com">Email us</a>
             <span class="footer-email">alchemyai.qatar@gmail.com</span>
@@ -259,22 +309,8 @@
     </div>
   </footer>
 
-  <script src="/site.js"></script>
+  <script src="site.js?v=20261026"></script>
   <script>
-    // Cluster figure: 48 GPUs. Half busy, then Alchemy fills the idle ones and holds.
-    const grid = document.getElementById('grid');
-    const cluster = document.querySelector('.cluster');
-    const total = 48;
-    const busyBefore = new Set([0,1,3,6,7,9,12,14,15,18,20,21,24,26,29,30,31,34,36,37,40,43,44,46]);
-    const idleAfter = new Set([11, 38, 45]);
-    const cells = [];
-    for (let i = 0; i < total; i++) {
-      const c = document.createElement('span');
-      if (busyBefore.has(i)) c.className = 'busy';
-      grid.appendChild(c);
-      cells.push(c);
-    }
-    const gained = cells.filter((c, i) => !busyBefore.has(i) && !idleAfter.has(i));
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Each figure plays once as it scrolls into view and resets once it is off
@@ -287,23 +323,57 @@
       }, { threshold: [0, 0.5] }).observe(target);
     };
 
-    let gridTimers = [];
-    const fill = () => {
-      cluster.classList.add('done');
-      gained.forEach((c, n) => gridTimers.push(setTimeout(() => c.classList.add('busy', 'gained'), 70 * n)));
+    // Hero: a GPU cluster, edge to edge. About half the GPUs are busy; once the
+    // cluster is in view, Alchemy fills the idle ones in brass, in a wave that
+    // sweeps left to right, and a few stay idle. The pattern is a seeded random,
+    // so it is the same on every load; resizing rebuilds it to fit.
+    const fleet = document.querySelector('.fleet');
+    const fleetGrid = fleet.querySelector('.fleet-grid');
+    const CELL = 24, GAP = 7, ROWS = 6;
+    let fleetCells = [], fleetTimers = [], fleetWidth = 0;
+    const buildFleet = () => {
+      let seed = 5;
+      const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
+      const W = fleetWidth = fleetGrid.clientWidth;
+      const cols = Math.max(8, Math.floor((W + GAP) / (CELL + GAP)));
+      fleetGrid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      const cells = [];
+      for (let r = 0; r < ROWS; r++) for (let c = 0; c < cols; c++) {
+        const el = document.createElement('i');
+        const roll = rnd();
+        const busy = roll < 0.5;
+        if (busy) el.className = 'busy';
+        cells.push({ el, busy, stays: !busy && roll > 0.93, delay: c / cols * 1600 + rnd() * 350 });
+      }
+      fleetCells = cells;
+      fleetGrid.replaceChildren(...cells.map(c => c.el));
     };
-    const empty = () => {
-      gridTimers.forEach(clearTimeout);
-      cluster.classList.remove('done');
-      gained.forEach(c => c.classList.remove('busy', 'gained'));
+    const showFilled = () => {
+      fleet.classList.add('done');
+      fleetCells.forEach(c => { if (!c.busy && !c.stays) c.el.classList.add('gained'); });
     };
+    const fillFleet = () => {
+      fleet.classList.add('done');
+      fleetCells.forEach(c => {
+        if (!c.busy && !c.stays) fleetTimers.push(setTimeout(() => c.el.classList.add('gained'), c.delay));
+      });
+    };
+    const emptyFleet = () => {
+      fleetTimers.forEach(clearTimeout);
+      fleetTimers = [];
+      fleet.classList.remove('done');
+      fleetCells.forEach(c => c.el.classList.remove('gained'));
+    };
+    buildFleet();
+    if (reduce) showFilled();
+    else onView(fleet, () => { fleetTimers = [setTimeout(fillFleet, 900)]; }, emptyFleet);
+    new ResizeObserver(() => {
+      if (fleetGrid.clientWidth === fleetWidth) return;
+      const filled = fleet.classList.contains('done');
+      buildFleet();
+      if (filled) showFilled();
+    }).observe(fleetGrid);
 
-    if (reduce) {
-      cluster.classList.add('done');
-      gained.forEach(c => c.classList.add('busy', 'gained'));
-    } else {
-      onView(cluster, () => { gridTimers = [setTimeout(fill, 1400)]; }, empty);
-    }
     // Utilization meters: 12 segments each. Both rows fill in step; the grey one
     // stalls at half while the brass one keeps going, then both hold.
     const rows = [...document.querySelectorAll('.meter span')].map(row => {
@@ -333,123 +403,6 @@
           () => { use.classList.remove('play'); if (meter) clearMeters(); });
       });
     }
-
-    // How it works: one path, then an evolutionary search. Each time the figure
-    // comes into view, a new random tree grows generation by generation, drops
-    // dead ends and lights up the path that survived. y is on a 0 to 150 scale.
-    const tree = document.getElementById('tree');
-    const process = document.querySelector('.process');
-    const NS = 'http://www.w3.org/2000/svg';
-    const GENS = 4, CY = 75, R = 6.5;
-    const SPREAD = [46, 26, 16];
-    const rand = (a, b) => a + Math.random() * (b - a);
-    const clamp = y => Math.max(10, Math.min(140, y));
-
-    const makeTree = () => {
-      const edges = [];
-      let alive = [{ y: CY, win: true }];
-      for (let g = 0; g < GENS - 1; g++) {
-        const next = [], used = [];
-        alive.sort((a, b) => b.win - a.win);
-        alive.forEach(p => {
-          const k = p.win ? 3 : (Math.random() < 0.5 ? 2 : 3);
-          const ys = [];
-          for (let i = 0; i < k; i++) {
-            ys.push(clamp(p.y + SPREAD[g] * (2 * i / (k - 1) - 1) + rand(-5, 5)));
-          }
-          const winIdx = p.win ? Math.floor(Math.random() * k) : -1;
-          ys.forEach((y, i) => {
-            const win = i === winIdx;
-            // Keep branch ends apart so dead ends never pile on top of each other.
-            if (!win && used.some(u => Math.abs(u - y) < 9)) return;
-            used.push(y);
-            const lives = win || (g < GENS - 2 && next.length < 4 && Math.random() < 0.45);
-            const edge = { g, from: p.y, to: y, win, dead: !lives };
-            edges.push(edge);
-            p.kids = (p.kids || 0) + 1;
-            if (lives) next.push({ y, win, edge });
-          });
-          // A branch whose children were all dropped is a dead end too.
-          if (!p.kids && p.edge) p.edge.dead = true;
-        });
-        alive = next;
-      }
-      const w = alive.find(n => n.win);
-      edges.push({ g: GENS - 1, from: w.y, to: CY, win: true, dead: false });
-      return edges;
-    };
-
-    const el = (name, attrs) => {
-      const n = document.createElementNS(NS, name);
-      for (const k in attrs) n.setAttribute(k, attrs[k]);
-      return n;
-    };
-
-    let current = makeTree();
-    let timers = [];
-    let drawnWidth = 0;
-    const later = (fn, ms) => timers.push(setTimeout(fn, ms));
-
-    // Draws the tree. 'grow' plays the search over about 3.5 seconds, 'wait'
-    // leaves the branches undrawn until the next grow, 'still' shows the result.
-    const drawTree = (edges, mode) => {
-      timers.forEach(clearTimeout); timers = [];
-      const W = drawnWidth = tree.clientWidth, H = 150;
-      const lis = process.querySelectorAll('li');
-      const stacked = getComputedStyle(process).gridTemplateColumns.split(' ').length < 3;
-      const x1 = R;
-      const x2 = stacked ? W * 0.2 : lis[1].getBoundingClientRect().left - tree.getBoundingClientRect().left + R;
-      const xEnd = W - R;
-      const gx = g => x2 + (xEnd - x2) * g / GENS;
-      const svg = el('svg', { width: W, height: H, viewBox: `0 0 ${W} ${H}` });
-      svg.appendChild(el('line', { x1, y1: CY, x2, y2: CY, class: 'trunk' }));
-      const search = svg.appendChild(el('g', { class: 'search' }));
-      const paths = edges.map(e => {
-        const a = gx(e.g), b = gx(e.g + 1), m = (a + b) / 2;
-        const p = el('path', { d: `M${a} ${e.from} C${m} ${e.from} ${m} ${e.to} ${b} ${e.to}`, class: 'try' });
-        search.appendChild(p);
-        return p;
-      });
-      const dots = edges.map(e => e.dead ? search.appendChild(el('circle', { cx: gx(e.g + 1), cy: e.to, r: 2.5, class: mode === 'still' ? 'dead' : 'dead hidden' })) : null);
-      svg.appendChild(el('circle', { cx: x1, cy: CY, r: R, class: 'node' }));
-      svg.appendChild(el('circle', { cx: x2, cy: CY, r: R, class: 'node' }));
-      const end = svg.appendChild(el('circle', { cx: xEnd, cy: CY, r: R, class: 'node' }));
-      tree.replaceChildren(svg);
-
-      const settle = () => {
-        edges.forEach((e, i) => e.win && paths[i].classList.add('win'));
-        end.classList.add('end');
-      };
-      if (mode === 'still') { settle(); return; }
-
-      // Grow: hide every branch behind its own dash, then reveal one generation at a time.
-      paths.forEach(p => {
-        const len = p.getTotalLength();
-        p.style.strokeDasharray = len;
-        p.style.strokeDashoffset = len;
-      });
-      if (mode === 'wait') return;
-      svg.getBoundingClientRect();
-      const STEP = 520;
-      edges.forEach((e, i) => later(() => {
-        paths[i].classList.add('grow');
-        paths[i].style.strokeDashoffset = 0;
-        if (dots[i]) later(() => dots[i].classList.remove('hidden'), 420);
-      }, 200 + e.g * STEP));
-      // Resolve: the surviving path turns brass from left to right.
-      const resolve = 200 + GENS * STEP + 300;
-      edges.forEach((e, i) => e.win && later(() => paths[i].classList.add('win'), resolve + e.g * 180));
-      later(() => end.classList.add('end'), resolve + GENS * 180);
-    };
-
-    // Redraw in place when the layout changes width; once it has grown, show the result.
-    let grown = false;
-    new ResizeObserver(() => {
-      if (tree.clientWidth !== drawnWidth) drawTree(current, grown || reduce ? 'still' : 'wait');
-    }).observe(tree);
-    if (!reduce) onView(tree,
-      () => { grown = true; current = makeTree(); drawTree(current, 'grow'); },
-      () => drawTree(current, 'wait'));
 
     // Results, Fanar 2.0: one answer streams into both panes at the measured
     // speeds (46.2 and 84.3 tokens/s, counting a word as 1.3 tokens), and each
@@ -522,6 +475,12 @@
       clearSeats();
       onView(seatsDemo, fillSeats, clearSeats);
     }
+
+    // Sections fade up once as they come into view.
+    const revealer = new IntersectionObserver(entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); revealer.unobserve(e.target); }
+    }), { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => revealer.observe(el));
   </script>
 </body>
 </html>

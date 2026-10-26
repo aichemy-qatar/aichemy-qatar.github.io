@@ -11,6 +11,7 @@
   --measure: 34rem;
   --gutter: clamp(1.25rem, 5vw, 3rem);
   --section: clamp(2.75rem, 5.5vw, 4rem);
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -174,109 +175,108 @@ p { margin: 0; }
   color: var(--muted);
 }
 
-.engine {
-  margin-top: 0.75rem;
-  font-size: 0.9375rem;
-  color: var(--accent);
-}
+/* Homepage: the page starts under the floating header, so the hero runs to the
+   very top of the screen. */
+.home .site-header { margin-bottom: -4.75rem; }
 
-/* Homepage hero: a dark stage set in from the page edges, with the pitch on the
-   left and the cluster on the right. */
+/* Homepage hero: full width and dark, one big centered line, and the GPU cluster
+   running edge to edge underneath it. Brass is only the GPUs Alchemy fills. */
 
-.home-hero { padding: 1.25rem clamp(0.5rem, 1.5vw, 1rem) clamp(1.25rem, 3vw, 2rem); }
-
-.stage {
-  max-width: 84rem;
-  margin-inline: auto;
-  border-radius: 20px;
+.hero-x {
+  position: relative;
+  padding-block: calc(4.75rem + clamp(2rem, 5vw, 3.5rem)) clamp(1.5rem, 3vw, 2rem);
   background:
-    radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.07) 1px, transparent 1.5px) 0 0 / 18px 18px,
-    var(--ink);
+    radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.06) 1px, transparent 1.5px) 0 0 / 22px 22px,
+    linear-gradient(180deg, #111214 0%, var(--ink) 100%);
   color: #fff;
+  overflow: hidden;
 }
 
-.stage :focus-visible { outline-color: var(--brass-light); }
+.hero-x :focus-visible { outline-color: var(--brass-light); }
 
-.stage-grid {
-  display: grid;
-  grid-template-columns: 1.05fr 1fr;
-  gap: clamp(2.5rem, 6vw, 5rem);
-  align-items: center;
-  padding-block: clamp(3.5rem, 8vw, 6rem);
-}
+.hero-x-copy { text-align: center; }
 
-.home-hero h1 {
-  font-size: clamp(2.5rem, 4.4vw, 3.6rem);
+.hero-x h1 {
+  max-width: 13ch;
+  margin: 0 auto;
+  font-size: clamp(2.75rem, 7.2vw, 6rem);
   font-weight: 300;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  line-height: 1;
+  letter-spacing: -0.04em;
   text-wrap: balance;
 }
 
-.home-hero .lede { margin-top: 1.5rem; color: rgb(255 255 255 / 0.7); }
-.home-hero .engine { margin-top: 1.5rem; color: var(--brass-light); }
+.hero-x .lede { max-width: 40rem; margin: 1.75rem auto 0; color: rgb(255 255 255 / 0.7); }
 
 .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
 .actions .button { margin-top: 0; }
+.hero-x .actions { justify-content: center; margin-top: 2.25rem; }
 
-/* Cluster figure: 48 GPUs on a panel raised off the stage; the script fills
-   the idle ones in brass. */
+/* The cluster: rows of GPUs across the whole screen, fading out at both sides
+   as if it carries on past the edges. White is busy, brass is what Alchemy
+   fills, dark is idle. The caption crossfades from before to after. */
 
-.cluster {
-  margin: 0;
-  padding: clamp(1.25rem, 3vw, 1.75rem);
-  background: #25282c;
-  border-radius: 12px;
-  box-shadow: 0 0 0 1px rgb(255 255 255 / 0.07), 0 30px 60px -30px rgb(0 0 0 / 0.8);
-  color: #fff;
-}
+.fleet { margin: clamp(2.5rem, 6vw, 4rem) 0 0; }
 
-.grid {
+.fleet-grid {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
   gap: 7px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
-.grid span {
+.fleet-grid i {
   aspect-ratio: 1;
   border-radius: 3px;
-  background: #33373d;
+  background: #2a2d32;
   transition: background-color 0.5s ease;
 }
 
-.grid span.busy { background: #e6e6e1; }
-.grid span.gained { background: var(--brass-light); }
+.fleet-grid i.busy { background: #e6e6e1; }
+.fleet-grid i.gained { background: var(--brass-light); }
 
-.cluster figcaption {
-  margin-top: 1.25rem;
-  font-size: 0.9375rem;
-  color: rgb(255 255 255 / 0.6);
+.fleet figcaption {
   display: grid;
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: rgb(255 255 255 / 0.55);
 }
 
-.cluster figcaption span { grid-area: 1 / 1; transition: opacity 0.6s ease; }
-.cluster .after { opacity: 0; }
-.cluster.done .before { opacity: 0; }
-.cluster.done .after { opacity: 1; }
+.fleet figcaption span { grid-area: 1 / 1; transition: opacity 0.6s ease; }
+.fleet .after { opacity: 0; }
+.fleet.done .before { opacity: 0; }
+.fleet.done .after { opacity: 1; }
 
 /* Sections open with a small brass label, then a real headline. Use cases sit
    on the lighter surface, How it works on dark, Results on the paper. */
 
-.uses, .how, .results { padding-block: var(--section); }
+.uses, .how, .results, .engage { padding-block: var(--section); }
 
 .uses { background: var(--surface); }
 
-.eyebrow { margin: 0; font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em; color: var(--accent); }
+/* Monospace for labels and numbers: the engineering voice. */
+.eyebrow, .fleet figcaption, .step-num, .pane-head, .demo figcaption { font-family: var(--mono); }
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
 
 .section-title { margin-bottom: clamp(2rem, 4vw, 3rem); }
 
 .section-title h2 {
   margin: 0.6rem 0 0;
-  max-width: 22ch;
-  font-size: clamp(1.875rem, 3.6vw, 2.75rem);
+  max-width: 20ch;
+  font-size: clamp(2.25rem, 4.6vw, 3.5rem);
   font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
 }
 
 .section-title .sub { margin-top: 0.9rem; max-width: var(--measure); color: var(--muted); }
@@ -359,36 +359,31 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .use p { margin-top: 0.5rem; color: var(--muted); max-width: 22rem; }
 
-/* How it works, on dark: a trunk, then a search that branches, drops dead ends,
-   and converges on the fastest version at the right edge of the page. */
+/* How it works, on dark: three steps as cards, each with a line icon. */
 
 .how { background: var(--ink); color: #fff; }
 .how .eyebrow { color: var(--brass-light); }
 
-.tree { height: 150px; margin-bottom: 2rem; }
-.tree svg { display: block; overflow: visible; }
-.tree path, .tree line { fill: none; }
-.tree .trunk { stroke: rgb(255 255 255 / 0.85); stroke-width: 1.25; }
-.tree .try { stroke: #fff; stroke-width: 1; stroke-opacity: 0.28; transition: stroke 0.4s ease, stroke-width 0.4s ease, stroke-opacity 0.4s ease; }
-.tree .try.grow { transition: stroke-dashoffset 0.5s ease-out, stroke 0.4s ease, stroke-width 0.4s ease, stroke-opacity 0.4s ease; }
-.tree .try.win { stroke: var(--brass-light); stroke-width: 1.75; stroke-opacity: 1; }
-.tree .dead { fill: #fff; opacity: 0.45; transition: opacity 0.3s ease; }
-.tree .dead.hidden { opacity: 0; }
-.tree .node { fill: var(--ink); stroke: #fff; stroke-width: 1.5; transition: fill 0.4s ease, stroke 0.4s ease; }
-.tree .node.end { fill: var(--brass-light); stroke: var(--brass-light); }
-
-.process {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.process h3 { display: flex; gap: 0.75rem; }
-.process .step { color: var(--brass-light); font-weight: 400; font-variant-numeric: tabular-nums; }
-.process p { margin-top: 0.5rem; color: rgb(255 255 255 / 0.62); max-width: 22rem; }
+.step-card { padding: clamp(1.5rem, 3vw, 2rem); background: #25282c; border-radius: 12px; }
+
+.step-icon { display: block; width: 56px; height: 56px; margin-bottom: 1.75rem; }
+.step-icon * { fill: none; stroke: rgb(255 255 255 / 0.8); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.step-icon .on { fill: var(--brass-light); stroke: var(--brass-light); }
+.step-icon .hot { stroke: var(--brass-light); }
+.step-icon .dot { fill: rgb(255 255 255 / 0.55); stroke: none; }
+
+.step-num { font-size: 0.75rem; letter-spacing: 0.08em; color: var(--brass-light); }
+.step-card h3 { margin-top: 0.5rem; font-size: 1.25rem; font-weight: 400; }
+.step-card p:last-child { margin-top: 0.5rem; color: rgb(255 255 255 / 0.62); }
 
 /* Results: each one a number on the left and a demo on the right. */
 
@@ -415,6 +410,7 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .what { margin-top: 0.75rem; font-weight: 500; }
 
 .detail { margin-top: 0.5rem; color: var(--muted); }
+.result .cost { color: var(--ink); font-weight: 500; }
 
 /* A demo is a dark screen with two panes, before and with Alchemy, like the
    cluster in the hero: white for what was there, brass for what Alchemy adds. */
@@ -497,26 +493,71 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .paper-feature { --cover: 13rem; }
 .paper-feature .entry-title { font-size: clamp(1.5rem, 3vw, 2rem); }
-.paper-feature .cited { margin-top: 1.75rem; }
 .paper-feature .more { margin-top: 1.75rem; }
 
+/* Who uses and cites LEVI, as a grid of logos. The files are trimmed to the
+   mark itself; the thin, condensed wordmarks (Berkeley, Carnegie Mellon) and
+   MIT's small type are set taller so every name reads at the same size. */
+.entry .cited { margin-top: 1.75rem; }
 .cited p { font-size: 0.9375rem; color: var(--muted); }
 
 .logos {
   margin-top: 1rem;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
   align-items: center;
-  gap: 2rem 2.75rem;
+  gap: 1.25rem 2.5rem;
 }
 
 .logos img {
-  height: 28px;
+  height: 22px;
   width: auto;
 }
 
-.logos img[alt="Carnegie Mellon University"] { height: 42px; }
-.logos img[alt="MIT"] { height: 24px; }
+.logos img[alt="UC Berkeley"], .logos img[alt="Carnegie Mellon University"] { height: 26px; }
+.logos img[alt="MIT"] { height: 30px; }
+
+/* Working with us: three steps from first message to a faster stack, as white
+   cards with an arrow between them, and the payment promise above them. */
+
+.engage .promise { color: var(--ink); font-size: 1.125rem; font-weight: 500; }
+
+.engage-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.engage-steps li {
+  position: relative;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  background: #fff;
+  border-radius: 12px;
+}
+
+.engage-steps .step-num { color: var(--accent); }
+.engage-steps h3 { margin-top: 0.5rem; font-size: 1.25rem; font-weight: 400; }
+.engage-steps li p:last-child { margin-top: 0.5rem; color: var(--muted); }
+
+/* An arrow in the gap after each step but the last. */
+.engage-steps li:not(:last-child)::after {
+  content: "\2192";
+  position: absolute;
+  top: 50%;
+  right: -1.05rem;
+  translate: 0 -50%;
+  z-index: 1;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+/* Sections fade up once as they come into view (the script adds .in). Without
+   the script, or with reduced motion, everything simply shows. */
+.js .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
 
 .button {
   display: inline-block;
@@ -630,22 +671,6 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 }
 
 .paper-cover:hover img { translate: 0 -3px; }
-
-.paper-cited { margin-top: 1.75rem; font-size: 0.875rem; color: var(--muted); }
-
-.paper-cited ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.75rem;
-  margin: 0.4rem 0 0;
-  padding: 0;
-  list-style: none;
-  color: var(--ink);
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.paper-cited li + li::before { content: "\00B7"; margin-right: 0.75rem; color: var(--muted); }
 
 .paper-links { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; margin-top: 1.75rem; }
 .paper-links .more { margin-top: 0; }
@@ -812,10 +837,6 @@ a.post-cover:hover { translate: 0 -3px; }
 
 /* Small screens */
 
-@media (max-width: 900px) {
-  .stage-grid { grid-template-columns: 1fr; }
-}
-
 @media (max-width: 720px) {
   .footer-main { grid-template-columns: 1fr 1fr; }
   .footer-cta { grid-column: 1 / -1; }
@@ -823,18 +844,19 @@ a.post-cover:hover { translate: 0 -3px; }
   .members, .post-grid { grid-template-columns: 1fr; }
   .paper-cover { width: min(14rem, 70%); }
   .use-list { grid-template-columns: 1fr; }
-  .process { grid-template-columns: 1fr; gap: 2.5rem; }
+  .steps, .engage-steps { grid-template-columns: 1fr; }
+  .engage-steps li:not(:last-child)::after { content: "\2193"; top: auto; bottom: -1.15rem; right: 50%; translate: 50% 0; }
   .result { grid-template-columns: 1fr; gap: 2rem; }
-  .stage { border-radius: 14px; }
   .race .panes { grid-template-columns: 1fr; }
-  .logos { gap: 1.5rem 1.75rem; }
-  .logos img { height: 22px; }
-  .logos img[alt="Carnegie Mellon University"] { height: 34px; }
-  .logos img[alt="MIT"] { height: 19px; }
+  .logos { grid-template-columns: repeat(2, max-content); gap: 1.25rem 2rem; }
+  .logos img { height: 19px; }
+  .logos img[alt="UC Berkeley"], .logos img[alt="Carnegie Mellon University"] { height: 22px; }
+  .logos img[alt="MIT"] { height: 26px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .grid span, .cluster figcaption span { transition: none; }
+  .fleet-grid i, .fleet figcaption span { transition: none; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
   .tokens span, svg.viz { animation: none; }
 }
