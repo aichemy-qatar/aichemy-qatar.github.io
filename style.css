@@ -389,7 +389,7 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .result {
   display: grid;
-  grid-template-columns: 15rem 1fr;
+  grid-template-columns: 16.5rem 1fr;
   gap: clamp(2rem, 5vw, 4rem);
   align-items: center;
 }
@@ -400,16 +400,19 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .gain {
   margin-top: 0.75rem;
-  font-size: clamp(3.5rem, 8vw, 5.5rem);
+  font-size: clamp(3.5rem, 8vw, 5rem);
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
 }
 
-.what { margin-top: 0.75rem; font-weight: 500; }
+/* A unit set beside the big number, small enough to keep it on one line. */
+.gain .unit { margin-left: 0.15em; font-size: 0.3em; font-weight: 400; letter-spacing: 0; }
 
-.detail { margin-top: 0.5rem; color: var(--muted); }
+.what { margin-top: 0.75rem; font-weight: 500; text-wrap: balance; }
+
+.detail { margin-top: 0.5rem; color: var(--muted); text-wrap: pretty; }
 .result .cost { color: var(--ink); font-weight: 500; }
 
 /* A demo is a dark screen with two panes, before and with Tafra Labs, like the
@@ -752,7 +755,8 @@ a.card-cover:hover img { translate: 0 -3px; }
 .cited-band { margin-top: clamp(2.5rem, 5vw, 3.5rem); }
 .cited-band .logos { grid-template-columns: repeat(6, max-content); justify-content: space-between; }
 
-@media (max-width: 960px) {
+/* Six logos in a row need about 960px of page; below that, three to a row. */
+@media (max-width: 1080px) {
   .cited-band .logos { grid-template-columns: repeat(3, max-content); justify-content: start; }
 }
 

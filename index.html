@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261026.11">
+  <link rel="stylesheet" href="style.css?v=20261026.15">
 </head>
 <body class="home">
 
@@ -193,23 +193,25 @@
         <div class="result reveal">
           <div class="result-copy">
             <p class="who">Qwen3.8-27B, reasoning chat</p>
-            <p class="gain">2&times;</p>
-            <p class="what">More users per GPU</p>
-            <p class="detail">22 to 44 users on one H100, each above 50 tokens per second.</p>
-            <p class="detail cost">Half the cost per million tokens.</p>
+            <p class="gain">2,444<span class="unit">tok/s</span></p>
+            <p class="what">Throughput on one H100</p>
+            <p class="detail">Up from 1,224 with stock vLLM: 44 users instead of 22, each above 50 tokens per second.</p>
+            <p class="detail cost">$0.34 per million output tokens, half the stock cost.</p>
           </div>
-          <figure class="demo seats-demo" aria-label="One H100 serving 22 users before and 44 with Tafra Labs, each above 50 tokens per second">
+          <figure class="demo seats-demo" aria-label="One H100 serving 22 users before and 44 with Tafra Labs, each above 50 tokens per second: 1,224 tokens per second in total before, 2,444 after">
             <div class="panes" aria-hidden="true">
               <div class="pane" data-users="22">
                 <p class="pane-head"><span>Baseline</span><span class="count">22 users</span></p>
                 <div class="seats"></div>
+                <p class="pane-foot">1,224 tok/s total</p>
               </div>
               <div class="pane levi" data-users="44">
                 <p class="pane-head"><span>Tafra Labs</span><span class="count">44 users</span></p>
                 <div class="seats"></div>
+                <p class="pane-foot">2,444 tok/s total</p>
               </div>
             </div>
-            <figcaption>One H100 SXM &middot; vLLM 0.31, FP8, against stock defaults &middot; reasoning on, chat and search prompts up to 12k tokens &middot; every user above 50 tok/s &middot; outputs checked equivalent to stock</figcaption>
+            <figcaption>One H100 SXM &middot; vLLM 0.31, FP8, against stock defaults &middot; reasoning on, chat and search prompts up to 12k tokens &middot; every user above 50 tok/s &middot; cost at $3 per GPU-hour &middot; outputs checked equivalent to stock</figcaption>
           </figure>
         </div>
       </div>
@@ -488,16 +490,17 @@
 
     // Results, Qwen3.8-27B: each seat is a concurrent user on one H100. Both
     // panes fill in step; stock stops at 22 while Tafra Labs carries on to 44,
-    // its extra users in brass.
+    // its extra users in brass. Each pane's measured total shows once it is full.
     const seatsDemo = document.querySelector('.seats-demo');
     const seatPanes = [...seatsDemo.querySelectorAll('.pane')].map(pane => {
       const seats = [];
       for (let i = 0; i < 44; i++) seats.push(pane.querySelector('.seats').appendChild(document.createElement('i')));
-      return { seats, users: +pane.dataset.users, count: pane.querySelector('.count') };
+      return { seats, users: +pane.dataset.users, count: pane.querySelector('.count'), total: pane.querySelector('.pane-foot') };
     });
     const showSeats = (pane, n) => {
       pane.seats.forEach((seat, i) => { seat.className = i >= n ? '' : i < 22 ? 'on' : 'on gained'; });
       pane.count.textContent = n + ' users';
+      pane.total.style.visibility = n === pane.users ? '' : 'hidden';
     };
     let seatTimers = [];
     const fillSeats = () => seatPanes.forEach(pane => {
