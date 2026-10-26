@@ -87,41 +87,17 @@
 
         <div class="result-switch reveal">
           <div class="result-tabs" role="tablist" aria-label="Results">
-            <button type="button" role="tab" id="tab-fanar" aria-controls="result-fanar" aria-selected="true">
-              <span class="tab-name">Fanar 2.0</span>
-              <span class="tab-what">Single-user speed</span>
-            </button>
-            <button type="button" role="tab" id="tab-qwen" aria-controls="result-qwen" aria-selected="false" tabindex="-1">
+            <button type="button" role="tab" id="tab-qwen" aria-controls="result-qwen" aria-selected="true">
               <span class="tab-name">Qwen3.8-27B</span>
               <span class="tab-what">Throughput per GPU</span>
             </button>
+            <button type="button" role="tab" id="tab-fanar" aria-controls="result-fanar" aria-selected="false" tabindex="-1">
+              <span class="tab-name">Fanar 2.0</span>
+              <span class="tab-what">Single-user speed</span>
+            </button>
           </div>
 
-          <div class="result" role="tabpanel" id="result-fanar" aria-labelledby="tab-fanar" tabindex="0">
-            <div class="result-copy">
-              <p class="gain">1.8&times;</p>
-              <p class="what">Faster answers</p>
-              <p class="detail">46 to 84 tokens per second for a single user on one H100.</p>
-            </div>
-            <figure class="demo race" aria-label="The same answer streamed at 46 tokens per second before and 84 with Tafra Labs">
-              <p class="race-prompt">Plan a day in Doha.</p>
-              <div class="panes" aria-hidden="true">
-                <div class="pane" data-tps="46.2">
-                  <p class="pane-head"><span>Baseline</span><span>46 tok/s</span></p>
-                  <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
-                  <p class="pane-foot">2.4 s</p>
-                </div>
-                <div class="pane levi" data-tps="84.3">
-                  <p class="pane-head"><span>Tafra Labs</span><span>84 tok/s</span></p>
-                  <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
-                  <p class="pane-foot">1.3 s</p>
-                </div>
-              </div>
-              <figcaption>Simulated at the measured speeds &middot; single user, one H100 SXM &middot; vLLM 0.18 in BF16 on both sides, against the setup QCRI advertises &middot; outputs bit-&#8288;identical</figcaption>
-            </figure>
-          </div>
-
-          <div class="result" role="tabpanel" id="result-qwen" aria-labelledby="tab-qwen" tabindex="0" hidden>
+          <div class="result" role="tabpanel" id="result-qwen" aria-labelledby="tab-qwen" tabindex="0">
             <div class="result-copy">
               <p class="gain">2,444<span class="unit">tok/s</span></p>
               <p class="what">Throughput on one H100</p>
@@ -142,6 +118,30 @@
                 </div>
               </div>
               <figcaption>One H100 SXM &middot; vLLM 0.31, FP8, against stock defaults &middot; reasoning on, chat and search prompts up to 12k tokens &middot; every user above 50 tok/s &middot; cost at $3 per GPU-hour &middot; outputs checked equivalent to stock</figcaption>
+            </figure>
+          </div>
+
+          <div class="result" role="tabpanel" id="result-fanar" aria-labelledby="tab-fanar" tabindex="0" hidden>
+            <div class="result-copy">
+              <p class="gain">1.8&times;</p>
+              <p class="what">Faster answers</p>
+              <p class="detail">46 to 84 tokens per second for a single user on one H100.</p>
+            </div>
+            <figure class="demo race" aria-label="The same answer streamed at 46 tokens per second before and 84 with Tafra Labs">
+              <p class="race-prompt">Plan a day in Doha.</p>
+              <div class="panes" aria-hidden="true">
+                <div class="pane" data-tps="46.2">
+                  <p class="pane-head"><span>Baseline</span><span>46 tok/s</span></p>
+                  <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
+                  <p class="pane-foot">2.4 s</p>
+                </div>
+                <div class="pane levi" data-tps="84.3">
+                  <p class="pane-head"><span>Tafra Labs</span><span>84 tok/s</span></p>
+                  <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
+                  <p class="pane-foot">1.3 s</p>
+                </div>
+              </div>
+              <figcaption>Simulated at the measured speeds &middot; single user, one H100 SXM &middot; vLLM 0.18 in BF16 on both sides, against the setup QCRI advertises &middot; outputs bit-&#8288;identical</figcaption>
             </figure>
           </div>
         </div>
