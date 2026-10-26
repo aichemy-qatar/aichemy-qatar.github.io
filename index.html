@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261026.16">
+  <link rel="stylesheet" href="style.css?v=20261026.18">
 </head>
 <body class="home">
 
@@ -62,7 +62,7 @@
     <section class="hero-x">
       <div class="wrap hero-x-copy">
         <h1>Get the most out of your GPUs.</h1>
-        <p class="lede">Tafra Labs makes AI inference and training run faster on the GPUs you already own, with the same models and the same outputs.</p>
+        <p class="lede">Tafra Labs runs the optimization on your workload and delivers a verified patch, with the same models and the same outputs.</p>
         <div class="actions">
           <a class="button" href="#contact">Work with us</a>
           <a class="button ghost" href="#results">See results</a>
@@ -71,39 +71,78 @@
       <figure class="fleet" aria-label="A GPU cluster with half its capacity idle, then nearly full with Tafra Labs">
         <div class="fleet-grid" aria-hidden="true"><div class="fleet-track"></div></div>
         <figcaption>
-          <span class="before">Before Tafra Labs: capacity sits idle.</span>
-          <span class="after">With Tafra Labs: the same GPUs do more work.</span>
+          <span class="fleet-figure"><span class="before">Stock vLLM: 1,224 tok/s</span><span class="after">With Tafra Labs: 2,444 tok/s</span></span>
+          <span class="fleet-note">Qwen3.8-27B on one H100, every user above 50 tok/s</span>
         </figcaption>
       </figure>
     </section>
 
-    <section class="uses" id="use-cases">
+    <section class="results" id="results">
       <div class="wrap">
-        <div class="section-title split reveal">
-          <div>
-            <p class="eyebrow">01 &middot; Use cases</p>
-            <h2>Faster inference, shorter training, fuller GPUs.</h2>
-          </div>
-          <p class="legend" aria-hidden="true"><span class="key base"></span>Before<span class="key levi"></span>With Tafra Labs</p>
+        <div class="section-title reveal">
+          <p class="eyebrow">01 &middot; Results</p>
+          <h2>Measured on real workloads.</h2>
+          <p class="sub">Same model and GPU before and after, with the model&rsquo;s outputs unchanged.</p>
         </div>
-        <div class="use-list">
-          <div class="use reveal">
-            <div class="viz tokens" aria-hidden="true"><span class="base"></span><span class="levi"></span></div>
-            <h3>LLM inference</h3>
-            <p>Faster generation for chat, search and agents.</p>
+
+        <div class="result-switch reveal">
+          <div class="result-tabs" role="tablist" aria-label="Results">
+            <button type="button" role="tab" id="tab-fanar" aria-controls="result-fanar" aria-selected="true">
+              <span class="tab-name">Fanar 2.0</span>
+              <span class="tab-what">Single-user speed</span>
+            </button>
+            <button type="button" role="tab" id="tab-qwen" aria-controls="result-qwen" aria-selected="false" tabindex="-1">
+              <span class="tab-name">Qwen3.8-27B</span>
+              <span class="tab-what">Throughput per GPU</span>
+            </button>
           </div>
-          <div class="use reveal">
-            <svg class="viz" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true">
-              <path class="base" d="M0 8.0 L6 9.7 L12 11.4 L18 13.0 L24 14.5 L30 16.0 L36 17.4 L42 18.7 L48 20.0 L54 21.3 L60 22.5 L66 23.7 L72 24.8 L78 25.8 L84 26.9 L90 27.9 L96 28.8 L102 29.7 L108 30.6 L114 31.4 L120 32.2 L126 33.0 L132 33.7 L138 34.5 L144 35.2 L150 35.8 L156 36.4 L162 37.1 L168 37.6 L174 38.2 L180 38.7 L186 39.3 L192 39.8 L198 40.2 L204 40.7 L210 41.1 L216 41.6 L222 42.0 L228 42.4 L234 42.8 L240 43.1"/>
-              <path class="levi" d="M0 8.0 L6 14.4 L12 19.9 L18 24.6 L24 28.6 L30 32.0 L36 34.9 L42 37.4 L48 39.6 L54 41.4 L60 42.9 L66 44.3 L72 45.4 L78 46.4 L84 47.2 L90 47.9 L96 48.5 L102 49.0 L108 49.4 L114 49.8 L120 50.1 L126 50.4 L132 50.6 L138 50.8 L144 51.0 L150 51.2 L156 51.3 L162 51.4 L168 51.5 L174 51.5 L180 51.6 L186 51.7 L192 51.7 L198 51.8 L204 51.8 L210 51.8 L216 51.9 L222 51.9 L228 51.9 L234 51.9 L240 51.9"/>
-            </svg>
-            <h3>AI training</h3>
-            <p>Shorter reinforcement learning and fine-tuning runs.</p>
+
+          <div class="result" role="tabpanel" id="result-fanar" aria-labelledby="tab-fanar" tabindex="0">
+            <div class="result-copy">
+              <p class="gain">1.8&times;</p>
+              <p class="what">Faster answers</p>
+              <p class="detail">46 to 84 tokens per second for a single user on one H100.</p>
+            </div>
+            <figure class="demo race" aria-label="The same answer streamed at 46 tokens per second before and 84 with Tafra Labs">
+              <p class="race-prompt">Plan a day in Doha.</p>
+              <div class="panes" aria-hidden="true">
+                <div class="pane" data-tps="46.2">
+                  <p class="pane-head"><span>Baseline</span><span>46 tok/s</span></p>
+                  <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
+                  <p class="pane-foot">2.4 s</p>
+                </div>
+                <div class="pane levi" data-tps="84.3">
+                  <p class="pane-head"><span>Tafra Labs</span><span>84 tok/s</span></p>
+                  <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
+                  <p class="pane-foot">1.3 s</p>
+                </div>
+              </div>
+              <figcaption>Simulated at the measured speeds &middot; single user, one H100 SXM &middot; vLLM 0.18 in BF16 on both sides, against the setup QCRI advertises &middot; outputs bit-&#8288;identical</figcaption>
+            </figure>
           </div>
-          <div class="use reveal">
-            <div class="viz meter" aria-hidden="true"><span class="base" data-on="6"></span><span class="levi" data-on="11"></span></div>
-            <h3>GPU utilization</h3>
-            <p>More work from the GPUs you already own.</p>
+
+          <div class="result" role="tabpanel" id="result-qwen" aria-labelledby="tab-qwen" tabindex="0" hidden>
+            <div class="result-copy">
+              <p class="gain">2,444<span class="unit">tok/s</span></p>
+              <p class="what">Throughput on one H100</p>
+              <p class="detail">Up from 1,224 with stock vLLM: 44 users instead of 22, each above 50 tokens per second.</p>
+              <p class="detail cost">$0.34 per million output tokens, half the stock cost.</p>
+            </div>
+            <figure class="demo seats-demo" aria-label="One H100 serving 22 users before and 44 with Tafra Labs, each above 50 tokens per second: 1,224 tokens per second in total before, 2,444 after">
+              <div class="panes" aria-hidden="true">
+                <div class="pane" data-users="22">
+                  <p class="pane-head"><span>Baseline</span><span class="count">22 users</span></p>
+                  <div class="seats"></div>
+                  <p class="pane-foot">1,224 tok/s total</p>
+                </div>
+                <div class="pane levi" data-users="44">
+                  <p class="pane-head"><span>Tafra Labs</span><span class="count">44 users</span></p>
+                  <div class="seats"></div>
+                  <p class="pane-foot">2,444 tok/s total</p>
+                </div>
+              </div>
+              <figcaption>One H100 SXM &middot; vLLM 0.31, FP8, against stock defaults &middot; reasoning on, chat and search prompts up to 12k tokens &middot; every user above 50 tok/s &middot; cost at $3 per GPU-hour &middot; outputs checked equivalent to stock</figcaption>
+            </figure>
           </div>
         </div>
       </div>
@@ -157,62 +196,34 @@
       </div>
     </section>
 
-    <section class="results" id="results">
+    <section class="uses" id="use-cases">
       <div class="wrap">
-        <div class="section-title reveal">
-          <p class="eyebrow">03 &middot; Results</p>
-          <h2>Measured on real workloads.</h2>
-          <p class="sub">Same model and GPU before and after, with the model&rsquo;s outputs unchanged.</p>
-        </div>
-
-        <div class="result reveal">
-          <div class="result-copy">
-            <p class="who">Fanar 2.0, QCRI</p>
-            <p class="gain">1.8&times;</p>
-            <p class="what">Faster answers</p>
-            <p class="detail">46 to 84 tokens per second for a single user on one H100.</p>
+        <div class="section-title split reveal">
+          <div>
+            <p class="eyebrow">03 &middot; Use cases</p>
+            <h2>Faster inference, shorter training, fuller GPUs.</h2>
           </div>
-          <figure class="demo race" aria-label="The same answer streamed at 46 tokens per second before and 84 with Tafra Labs">
-            <p class="race-prompt">Plan a day in Doha.</p>
-            <div class="panes" aria-hidden="true">
-              <div class="pane" data-tps="46.2">
-                <p class="pane-head"><span>Baseline</span><span>46 tok/s</span></p>
-                <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
-                <p class="pane-foot">2.4 s</p>
-              </div>
-              <div class="pane levi" data-tps="84.3">
-                <p class="pane-head"><span>Tafra Labs</span><span>84 tok/s</span></p>
-                <div class="pane-body"><p class="pane-text">Start at Souq Waqif for breakfast and a walk through its spice and textile stalls. Mid-morning, head to the Museum of Islamic Art, whose I. M. Pei building looks out over the bay. After lunch, stroll the Corniche toward the towers of West Bay. In the late afternoon, visit Katara Cultural Village for its amphitheatre and galleries. Near sunset, take a dhow cruise to see the skyline from the water. End the day at The Pearl-Qatar, with dinner by the marina as the lights come on.</p></div>
-                <p class="pane-foot">1.3 s</p>
-              </div>
-            </div>
-            <figcaption>Simulated at the measured speeds &middot; single user, one H100 SXM &middot; vLLM 0.18 in BF16 on both sides, against the setup QCRI advertises &middot; outputs bit-&#8288;identical</figcaption>
-          </figure>
+          <p class="legend" aria-hidden="true"><span class="key base"></span>Before<span class="key levi"></span>With Tafra Labs</p>
         </div>
-
-        <div class="result reveal">
-          <div class="result-copy">
-            <p class="who">Qwen3.8-27B, reasoning chat</p>
-            <p class="gain">2,444<span class="unit">tok/s</span></p>
-            <p class="what">Throughput on one H100</p>
-            <p class="detail">Up from 1,224 with stock vLLM: 44 users instead of 22, each above 50 tokens per second.</p>
-            <p class="detail cost">$0.34 per million output tokens, half the stock cost.</p>
+        <div class="use-list">
+          <div class="use reveal">
+            <div class="viz tokens" aria-hidden="true"><span class="base"></span><span class="levi"></span></div>
+            <h3>LLM inference</h3>
+            <p>Faster generation for chat, search and agents.</p>
           </div>
-          <figure class="demo seats-demo" aria-label="One H100 serving 22 users before and 44 with Tafra Labs, each above 50 tokens per second: 1,224 tokens per second in total before, 2,444 after">
-            <div class="panes" aria-hidden="true">
-              <div class="pane" data-users="22">
-                <p class="pane-head"><span>Baseline</span><span class="count">22 users</span></p>
-                <div class="seats"></div>
-                <p class="pane-foot">1,224 tok/s total</p>
-              </div>
-              <div class="pane levi" data-users="44">
-                <p class="pane-head"><span>Tafra Labs</span><span class="count">44 users</span></p>
-                <div class="seats"></div>
-                <p class="pane-foot">2,444 tok/s total</p>
-              </div>
-            </div>
-            <figcaption>One H100 SXM &middot; vLLM 0.31, FP8, against stock defaults &middot; reasoning on, chat and search prompts up to 12k tokens &middot; every user above 50 tok/s &middot; cost at $3 per GPU-hour &middot; outputs checked equivalent to stock</figcaption>
-          </figure>
+          <div class="use reveal">
+            <svg class="viz" viewBox="0 0 240 56" preserveAspectRatio="none" aria-hidden="true">
+              <path class="base" d="M0 8.0 L6 9.7 L12 11.4 L18 13.0 L24 14.5 L30 16.0 L36 17.4 L42 18.7 L48 20.0 L54 21.3 L60 22.5 L66 23.7 L72 24.8 L78 25.8 L84 26.9 L90 27.9 L96 28.8 L102 29.7 L108 30.6 L114 31.4 L120 32.2 L126 33.0 L132 33.7 L138 34.5 L144 35.2 L150 35.8 L156 36.4 L162 37.1 L168 37.6 L174 38.2 L180 38.7 L186 39.3 L192 39.8 L198 40.2 L204 40.7 L210 41.1 L216 41.6 L222 42.0 L228 42.4 L234 42.8 L240 43.1"/>
+              <path class="levi" d="M0 8.0 L6 14.4 L12 19.9 L18 24.6 L24 28.6 L30 32.0 L36 34.9 L42 37.4 L48 39.6 L54 41.4 L60 42.9 L66 44.3 L72 45.4 L78 46.4 L84 47.2 L90 47.9 L96 48.5 L102 49.0 L108 49.4 L114 49.8 L120 50.1 L126 50.4 L132 50.6 L138 50.8 L144 51.0 L150 51.2 L156 51.3 L162 51.4 L168 51.5 L174 51.5 L180 51.6 L186 51.7 L192 51.7 L198 51.8 L204 51.8 L210 51.8 L216 51.9 L222 51.9 L228 51.9 L234 51.9 L240 51.9"/>
+            </svg>
+            <h3>AI training</h3>
+            <p>Shorter reinforcement learning and fine-tuning runs.</p>
+          </div>
+          <div class="use reveal">
+            <div class="viz meter" aria-hidden="true"><span class="base" data-on="6"></span><span class="levi" data-on="11"></span></div>
+            <h3>GPU utilization</h3>
+            <p>More work from the GPUs you already own.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -266,7 +277,7 @@
           <li>
             <p class="step-num">01</p>
             <h3>Tell us what you run</h3>
-            <p>Your model, how you serve it, and which GPUs it runs on.</p>
+            <p>Send your model, serving stack and GPUs, and we&rsquo;ll tell you if there&rsquo;s a fit.</p>
           </li>
           <li>
             <p class="step-num">02</p>
@@ -316,17 +327,17 @@
       <div class="footer-main">
         <div class="footer-cta">
           <h2>Work with us</h2>
-          <p>Tell us what you run. You only pay if there&rsquo;s a measured improvement.</p>
+          <p>Send your model, serving stack and GPUs, and we&rsquo;ll tell you if there&rsquo;s a fit. You only pay if there&rsquo;s a measured improvement.</p>
           <div class="footer-actions">
-            <a class="button" href="mailto:hello@tafralabs.com">Email us</a>
+            <a class="button" href="mailto:hello@tafralabs.com?subject=Fit%20check&amp;body=Model%3A%20%0AServing%20stack%3A%20%0AGPUs%3A%20">Email us</a>
             <span class="footer-email">hello@tafralabs.com</span>
           </div>
         </div>
         <div class="footer-col">
           <p class="footer-label">Product</p>
-          <a href="#use-cases">Use cases</a>
-          <a href="#how-it-works">How it works</a>
           <a href="#results">Results</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="#use-cases">Use cases</a>
           <a href="#faq">FAQ</a>
         </div>
         <div class="footer-col">
@@ -501,6 +512,26 @@
           () => { use.classList.remove('play'); if (meter) clearMeters(); });
       });
     }
+
+    // Results: one at a time, picked with the tabs above them. Showing a result
+    // brings it into view, which plays its demo.
+    const resultTabs = [...document.querySelectorAll('.result-tabs [role="tab"]')];
+    const showResult = tab => resultTabs.forEach(t => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    resultTabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => showResult(tab));
+      tab.addEventListener('keydown', e => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (!step) return;
+        const next = resultTabs[(i + step + resultTabs.length) % resultTabs.length];
+        showResult(next);
+        next.focus();
+      });
+    });
 
     // Results, Fanar 2.0: one answer streams into both panes at the measured
     // speeds (46.2 and 84.3 tokens/s, counting a word as 1.3 tokens), and each

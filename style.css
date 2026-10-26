@@ -251,7 +251,6 @@ p { margin: 0; }
 .fleet-grid i.gained { background: var(--brass-light); }
 
 .fleet figcaption {
-  display: grid;
   margin-top: 1.25rem;
   text-align: center;
   font-size: 0.75rem;
@@ -259,17 +258,20 @@ p { margin: 0; }
   color: rgb(255 255 255 / 0.55);
 }
 
-.fleet figcaption span { grid-area: 1 / 1; transition: opacity 0.6s ease; }
-.fleet .after { opacity: 0; }
+/* The measured figure crossfades from stock to Tafra Labs as the cluster
+   fills, with what it was measured on underneath. */
+.fleet-figure { display: grid; font-size: 0.9375rem; color: #fff; }
+.fleet-figure span { grid-area: 1 / 1; transition: opacity 0.6s ease; }
+.fleet .after { opacity: 0; color: var(--brass-light); }
 .fleet.done .before { opacity: 0; }
 .fleet.done .after { opacity: 1; }
+.fleet-note { display: block; margin-top: 0.35rem; }
 
-/* Sections open with a small brass label, then a real headline. Use cases sit
-   on the lighter surface, How it works on dark, Results on the paper. */
+/* Sections open with a small brass label, then a real headline. Results and
+   Use cases sit on the paper, with How it works on dark between them. */
 
 .uses, .how, .results, .engage { padding-block: var(--section); }
 
-.uses { background: var(--surface); }
 
 /* Monospace for labels and numbers: the engineering voice. */
 .eyebrow, .fleet figcaption, .step-num, .pane-head, .demo figcaption { font-family: var(--mono); }
@@ -400,7 +402,37 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .step-card h3 { margin-top: 0.5rem; font-size: 1.25rem; font-weight: 400; }
 .step-card p:last-child { margin-top: 0.5rem; color: rgb(255 255 255 / 0.62); }
 
-/* Results: each one a number on the left and a demo on the right. */
+/* Results: one at a time, picked with tabs that underline the one showing,
+   like the current page in the header. */
+
+.result-tabs {
+  display: flex;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-bottom: clamp(1.75rem, 3.5vw, 2.5rem);
+  border-bottom: 1px solid var(--rule);
+}
+
+.result-tabs button {
+  display: grid;
+  gap: 0.1rem;
+  margin-bottom: -1px;
+  padding: 0 0 0.9rem;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font: inherit;
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.result-tabs button:hover { color: var(--ink); }
+.result-tabs [aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tab-name { font-weight: 500; }
+.tab-what { font-size: 0.875rem; color: var(--muted); }
+
+/* Each result: a number on the left and a demo on the right. */
 
 .result {
   display: grid;
@@ -409,12 +441,10 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
   align-items: center;
 }
 
-.result + .result { margin-top: clamp(3rem, 6vw, 4.5rem); }
-
-.who { font-size: 0.9375rem; color: var(--muted); }
+.result[hidden] { display: none; }
 
 .gain {
-  margin-top: 0.75rem;
+  margin-top: 0;
   font-size: clamp(3.5rem, 8vw, 5rem);
   font-weight: 300;
   line-height: 1;
