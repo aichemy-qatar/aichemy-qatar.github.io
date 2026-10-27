@@ -180,7 +180,7 @@ p { margin: 0; }
 .home .site-header { margin-bottom: -4.75rem; }
 
 /* Homepage hero: full width and dark, one big centered line, and the GPU cluster
-   running edge to edge underneath it. Brass is only the GPUs Tafra Labs fills. */
+   running edge to edge underneath it. Brass is only the GPUs Tufra Labs fills. */
 
 .hero-x {
   position: relative;
@@ -213,7 +213,7 @@ p { margin: 0; }
 .hero-x .actions { justify-content: center; margin-top: 2.25rem; }
 
 /* The cluster: rows of GPUs across the whole screen, fading out at both sides
-   as if it carries on past the edges. White is busy, brass is what Tafra Labs
+   as if it carries on past the edges. White is busy, brass is what Tufra Labs
    fills, dark is idle. The caption crossfades from before to after. */
 
 .fleet { margin: clamp(2.5rem, 6vw, 4rem) 0 0; }
@@ -241,14 +241,41 @@ p { margin: 0; }
 }
 
 .fleet-grid i {
+  position: relative;
   aspect-ratio: 1;
   border-radius: 3px;
   background: #2a2d32;
-  transition: background-color 0.5s ease;
+  transition: background-color 0.35s ease;
 }
 
 .fleet-grid i.busy { background: #e6e6e1; }
 .fleet-grid i.gained { background: var(--brass-light); }
+
+/* A popped square: it changes colour at once, squashes, springs past its size
+   and settles, while a ring in its new colour goes out from it and fades. */
+.fleet-grid i.pop { animation: fleet-pop 0.35s ease-out; transition-duration: 0.08s; }
+
+.fleet-grid i.pop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--brass-light);
+  border-radius: 4px;
+  animation: fleet-ring 0.45s ease-out forwards;
+  pointer-events: none;
+}
+
+.fleet-grid i.pop:not(.gained)::after { border-color: rgb(255 255 255 / 0.6); }
+
+@keyframes fleet-pop {
+  30% { transform: scale(0.75); }
+  65% { transform: scale(1.15); }
+}
+
+@keyframes fleet-ring {
+  from { opacity: 0.8; transform: scale(1); }
+  to { opacity: 0; transform: scale(2); }
+}
 
 .fleet figcaption {
   margin-top: 1.25rem;
@@ -258,7 +285,7 @@ p { margin: 0; }
   color: rgb(255 255 255 / 0.55);
 }
 
-/* The measured figure crossfades from stock to Tafra Labs as the cluster
+/* The measured figure crossfades from stock to Tufra Labs as the cluster
    fills, with what it was measured on underneath. */
 .fleet-figure { display: grid; font-size: 0.9375rem; color: #fff; }
 .fleet-figure span { grid-area: 1 / 1; transition: opacity 0.6s ease; }
@@ -460,8 +487,8 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .detail { margin-top: 0.5rem; color: var(--muted); text-wrap: pretty; }
 .result .cost { color: var(--ink); font-weight: 500; }
 
-/* A demo is a dark screen with two panes, before and with Tafra Labs, like the
-   cluster in the hero: white for what was there, brass for what Tafra Labs adds. */
+/* A demo is a dark screen with two panes, before and with Tufra Labs, like the
+   cluster in the hero: white for what was there, brass for what Tufra Labs adds. */
 
 .demo {
   margin: 0;
@@ -961,6 +988,8 @@ a.card-cover:hover img { translate: 0 -3px; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .fleet-grid i, .fleet figcaption span { transition: none; }
+  .fleet-grid i.pop { animation: none; }
+  .fleet-grid i.pop::after { content: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
   .tokens span, svg.viz { animation: none; }
 }
