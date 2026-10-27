@@ -49,7 +49,7 @@ h2 {
 
 h3 { font-size: 1.0625rem; font-weight: 500; }
 
-p { margin: 0; }
+p { margin: 0; text-wrap: pretty; }
 
 /* Header: a white bar floating over the page, set in from the edges; its shadow
    deepens once the page scrolls. */
@@ -93,6 +93,7 @@ p { margin: 0; }
   font-size: 1.25rem;
   letter-spacing: -0.01em;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .wordmark .mark { width: 1.625rem; height: 1.625rem; }
@@ -135,6 +136,7 @@ p { margin: 0; }
   justify-content: center;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
   width: 2.5rem;
   height: 2.5rem;
   margin-right: -0.5rem;
@@ -292,7 +294,7 @@ p { margin: 0; }
 .fleet .after { opacity: 0; color: var(--brass-light); }
 .fleet.done .before { opacity: 0; }
 .fleet.done .after { opacity: 1; }
-.fleet-note { display: block; margin-top: 0.35rem; }
+.fleet-note { display: block; margin-top: 0.35rem; text-wrap: balance; }
 
 /* Sections open with a small brass label, then a real headline. Results and
    Use cases sit on the paper, with How it works on dark between them. */
@@ -423,7 +425,7 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .step-icon * { fill: none; stroke: rgb(255 255 255 / 0.8); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .step-icon .on { fill: var(--brass-light); stroke: var(--brass-light); }
 .step-icon .hot { stroke: var(--brass-light); }
-.step-icon .dot { fill: rgb(255 255 255 / 0.55); stroke: none; }
+.step-icon .dim { stroke: rgb(255 255 255 / 0.45); }
 
 .step-num { font-size: 0.75rem; letter-spacing: 0.08em; color: var(--brass-light); }
 .step-card h3 { margin-top: 0.5rem; font-size: 1.25rem; font-weight: 400; }
@@ -612,41 +614,52 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .logos img[alt="UC Berkeley"], .logos img[alt="Carnegie Mellon University"] { height: 26px; }
 .logos img[alt="MIT"] { height: 30px; }
 
-/* Working with us: three steps from first message to a faster stack, as white
-   cards with an arrow between them, and the payment promise above them. */
+/* Working with us, on dark like How it works: three steps from first message
+   to a faster stack, as a timeline of numbered circles joined by a line, with
+   the payment promise above. The last circle is filled brass: it's the outcome. */
 
-.engage .promise { color: var(--ink); font-size: 1.125rem; font-weight: 500; }
+.engage { background: var(--ink); color: #fff; }
+.engage .eyebrow { color: var(--brass-light); }
+.engage .promise { color: #fff; font-size: 1.125rem; font-weight: 500; }
 
 .engage-steps {
+  --dot: 2.75rem;
+  --step-gap: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: var(--step-gap);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.engage-steps li {
-  position: relative;
-  padding: clamp(1.5rem, 3vw, 2rem);
-  background: #fff;
-  border-radius: 12px;
+.engage-steps li { position: relative; }
+
+.engage-steps .step-num {
+  display: grid;
+  place-items: center;
+  width: var(--dot);
+  height: var(--dot);
+  border: 1px solid rgb(255 255 255 / 0.35);
+  border-radius: 50%;
+  font-size: 0.8125rem;
+  color: #fff;
 }
 
-.engage-steps .step-num { color: var(--accent); }
-.engage-steps h3 { margin-top: 0.5rem; font-size: 1.25rem; font-weight: 400; }
-.engage-steps li p:last-child { margin-top: 0.5rem; color: var(--muted); }
+.engage-steps li:last-child .step-num { background: var(--brass-light); border-color: var(--brass-light); color: var(--ink); }
 
-/* An arrow in the gap after each step but the last. */
+.engage-steps h3 { margin-top: 1.25rem; font-size: 1.25rem; font-weight: 400; }
+.engage-steps li p:last-child { margin-top: 0.35rem; color: rgb(255 255 255 / 0.62); }
+
+/* The line from each circle to the next. */
 .engage-steps li:not(:last-child)::after {
-  content: "\2192";
+  content: "";
   position: absolute;
-  top: 50%;
-  right: -1.05rem;
-  translate: 0 -50%;
-  z-index: 1;
-  color: var(--muted);
-  font-size: 1rem;
+  top: calc(var(--dot) / 2);
+  left: calc(var(--dot) + 0.75rem);
+  right: calc(0.75rem - var(--step-gap));
+  height: 1px;
+  background: rgb(255 255 255 / 0.25);
 }
 
 /* Questions: the title on the left, and on the right each question as a row
@@ -764,12 +777,16 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
+
+/* The coming-soon card is last in the page; it leads the row of three on a
+   computer, and drops to the end once the cards stack. */
+.card.upcoming { order: -1; }
 
 .card {
   display: flex;
@@ -845,7 +862,7 @@ a.card-cover:hover img { translate: 0 -3px; }
 
 .member { padding: clamp(1.5rem, 3vw, 2.25rem); background: #fff; border-radius: 8px; }
 
-.member img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; filter: grayscale(1); }
+.member img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; }
 
 .member h2 {
   margin: 1.25rem 0 0;
@@ -942,6 +959,11 @@ a.card-cover:hover img { translate: 0 -3px; }
 .footer-base .wordmark { color: #fff; font-size: 1.0625rem; }
 .footer-base .mark { width: 1.375rem; height: 1.375rem; }
 
+@media (max-width: 960px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .card.upcoming { order: 0; }
+}
+
 /* Header collapses to a menu button before the links run out of room. */
 
 @media (max-width: 820px) {
@@ -971,11 +993,16 @@ a.card-cover:hover img { translate: 0 -3px; }
   .footer-main { grid-template-columns: 1fr 1fr; }
   .footer-cta { grid-column: 1 / -1; }
   .research-list li { grid-template-columns: 1fr; }
+  .cards { grid-template-columns: 1fr; }
   .members { grid-template-columns: 1fr; }
   .faq .wrap { grid-template-columns: 1fr; }
   .use-list { grid-template-columns: 1fr; }
   .steps, .engage-steps { grid-template-columns: 1fr; }
-  .engage-steps li:not(:last-child)::after { content: "\2193"; top: auto; bottom: -1.15rem; right: 50%; translate: 50% 0; }
+  .engage-steps { --step-gap: 1.75rem; }
+  .engage-steps li { display: grid; grid-template-columns: var(--dot) 1fr; column-gap: 1rem; }
+  .engage-steps .step-num { grid-row: span 2; }
+  .engage-steps h3 { margin-top: 0.5rem; }
+  .engage-steps li:not(:last-child)::after { top: calc(var(--dot) + 0.5rem); bottom: calc(0.5rem - var(--step-gap)); left: calc(var(--dot) / 2); right: auto; width: 1px; height: auto; }
   .result { grid-template-columns: 1fr; gap: 2rem; }
   .race .panes { grid-template-columns: 1fr; }
   .logos { grid-template-columns: repeat(2, max-content); gap: 1.25rem 2rem; }
@@ -983,6 +1010,21 @@ a.card-cover:hover img { translate: 0 -3px; }
   .logos img[alt="UC Berkeley"], .logos img[alt="Carnegie Mellon University"] { height: 22px; }
   .logos img[alt="MIT"] { height: 26px; }
   .cited-band .logos { grid-template-columns: repeat(2, max-content); }
+}
+
+/* Narrow phones: a smaller wordmark and button keep the header on one line,
+   and on the narrowest the button gives way to the menu. */
+
+@media (max-width: 400px) {
+  .nav { gap: 0.625rem; padding-inline: 0.875rem 0.625rem; }
+  .nav .wordmark { gap: 0.5rem; font-size: 1.125rem; }
+  .nav .mark { width: 1.375rem; height: 1.375rem; }
+  .nav-cta { padding: 0.5rem 0.85rem; font-size: 0.875rem; }
+}
+
+@media (max-width: 340px) {
+  .nav-cta { display: none; }
+  .menu-toggle { margin-left: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
