@@ -39,7 +39,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261027.6">
+  <link rel="stylesheet" href="style.css?v=20261028.1">
 </head>
 <body class="home">
 
@@ -117,7 +117,10 @@
                   <p class="pane-foot">2,444 tok/s total</p>
                 </div>
               </div>
-              <figcaption>One H100 SXM&nbsp;&middot; vLLM 0.31, FP8, against stock defaults&nbsp;&middot; reasoning on, chat and search prompts up to 12k tokens&nbsp;&middot; every user above 50&nbsp;tok/s&nbsp;&middot; cost at $3 per GPU-&#8288;hour&nbsp;&middot; outputs checked equivalent to stock</figcaption>
+              <figcaption class="method">
+                <button type="button" class="method-toggle" aria-expanded="false" aria-controls="method-qwen">How we measured</button>
+                <span class="method-text" id="method-qwen">One H100 SXM&nbsp;&middot; vLLM 0.31, FP8, against stock defaults&nbsp;&middot; reasoning on, chat and search prompts up to 12k tokens&nbsp;&middot; every user above 50&nbsp;tok/s&nbsp;&middot; cost at $3 per GPU-&#8288;hour&nbsp;&middot; outputs checked equivalent to stock</span>
+              </figcaption>
             </figure>
           </div>
 
@@ -141,7 +144,10 @@
                   <p class="pane-foot">1.3 s</p>
                 </div>
               </div>
-              <figcaption>Simulated at the measured speeds&nbsp;&middot; single user, one H100 SXM&nbsp;&middot; vLLM 0.18 in BF16 on both sides, against the setup QCRI advertises&nbsp;&middot; outputs bit-&#8288;identical</figcaption>
+              <figcaption class="method">
+                <button type="button" class="method-toggle" aria-expanded="false" aria-controls="method-fanar">How we measured</button>
+                <span class="method-text" id="method-fanar">Simulated at the measured speeds&nbsp;&middot; single user, one H100 SXM&nbsp;&middot; vLLM 0.18 in BF16 on both sides, against the setup QCRI advertises&nbsp;&middot; outputs bit-&#8288;identical</span>
+              </figcaption>
             </figure>
           </div>
         </div>
@@ -592,6 +598,11 @@
       });
     });
 
+    // On a phone, how each demo was measured opens from a button under it.
+    document.querySelectorAll('.method-toggle').forEach(button => button.addEventListener('click', () => {
+      button.setAttribute('aria-expanded', button.parentElement.classList.toggle('open'));
+    }));
+
     // Results, Fanar 2.0: one answer streams into both panes at the measured
     // speeds (46.2 and 84.3 tokens/s, counting a word as 1.3 tokens), and each
     // pane's timer stops when its answer is done. A hidden copy of the full
@@ -600,18 +611,24 @@
     const answer = race.querySelector('.pane-text').textContent;
     const words = answer.match(/\s*\S+/g);
     const lanes = [...race.querySelectorAll('.pane')].map(pane => {
-      const ghost = pane.querySelector('.pane-body').appendChild(document.createElement('p'));
+      const body = pane.querySelector('.pane-body');
+      const ghost = body.appendChild(document.createElement('p'));
       ghost.className = 'ghost';
       ghost.textContent = answer;
       return {
+        body,
         text: pane.querySelector('.pane-text'),
         time: pane.querySelector('.pane-foot'),
         ms: words.length * 1.3 / +pane.dataset.tps * 1000,
       };
     });
+    // On a phone each pane is only a few lines tall, so it keeps the newest
+    // line in view and fades out the lines that have scrolled past.
     const showLane = (lane, t) => {
       lane.text.textContent = words.slice(0, Math.round(t * words.length)).join('');
       lane.time.textContent = (t * lane.ms / 1000).toFixed(1) + ' s';
+      lane.body.scrollTop = lane.body.scrollHeight;
+      lane.body.classList.toggle('scrolled', lane.body.scrollTop > 0);
     };
     let raceFrame;
     const runRace = () => {
