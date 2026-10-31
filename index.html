@@ -40,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261028.1">
+  <link rel="stylesheet" href="style.css?v=20261031.5">
 </head>
 <body class="home">
 
@@ -81,20 +81,32 @@
     <section class="results" id="results">
       <div class="wrap">
         <div class="section-title reveal">
-          <p class="eyebrow">01 &middot; Results</p>
-          <h2>Measured on real workloads.</h2>
-          <p class="sub">Same model and GPU before and after, with the model&rsquo;s outputs unchanged.</p>
+          <p class="eyebrow">01 &middot; Selected results</p>
+          <h2>Examples from recent runs.</h2>
+          <p class="sub">Sorted by goal. Each one compares the same model before and after. Benchmark results are in <a href="#research">our research</a>.</p>
         </div>
 
         <div class="result-switch reveal">
-          <div class="result-tabs" role="tablist" aria-label="Results">
+          <div class="result-tabs" role="tablist" aria-label="Selected results">
             <button type="button" role="tab" id="tab-qwen" aria-controls="result-qwen" aria-selected="true">
-              <span class="tab-name">Qwen3.8-27B</span>
-              <span class="tab-what">Throughput per GPU</span>
+              <span class="tab-name">More users per GPU</span>
+              <span class="tab-what">Qwen3.8-27B, H100</span>
             </button>
             <button type="button" role="tab" id="tab-fanar" aria-controls="result-fanar" aria-selected="false" tabindex="-1">
-              <span class="tab-name">Fanar 2.0</span>
-              <span class="tab-what">Single-user speed</span>
+              <span class="tab-name">Faster answers</span>
+              <span class="tab-what">Fanar 2.0, H100</span>
+            </button>
+            <button type="button" role="tab" id="tab-prompts" aria-controls="result-prompts" aria-selected="false" tabindex="-1">
+              <span class="tab-name">Faster long prompts</span>
+              <span class="tab-what">Qwen3.6-35B, RTX 3090</span>
+            </button>
+            <button type="button" role="tab" id="tab-rl" aria-controls="result-rl" aria-selected="false" tabindex="-1">
+              <span class="tab-name">Faster RL training</span>
+              <span class="tab-what">An RL run, 8 H100s</span>
+            </button>
+            <button type="button" role="tab" id="tab-accuracy" aria-controls="result-accuracy" aria-selected="false" tabindex="-1">
+              <span class="tab-name">Higher accuracy</span>
+              <span class="tab-what">Prompt optimization, Qwen3-8B</span>
             </button>
           </div>
 
@@ -148,6 +160,74 @@
               <figcaption class="method">
                 <button type="button" class="method-toggle" aria-expanded="false" aria-controls="method-fanar">How we measured</button>
                 <span class="method-text" id="method-fanar">Simulated at the measured speeds&nbsp;&middot; single user, one H100 SXM&nbsp;&middot; vLLM 0.18 in BF16 on both sides, against the setup QCRI advertises&nbsp;&middot; outputs bit-&#8288;identical</span>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="result" role="tabpanel" id="result-prompts" aria-labelledby="tab-prompts" tabindex="0" hidden>
+            <div class="result-copy">
+              <p class="gain">2.4&times;</p>
+              <p class="what">Faster long prompts</p>
+              <p class="detail">A 4,096-token prompt is read in 3.1&nbsp;s instead of 7.3&nbsp;s on one RTX 3090, with generation speed unchanged.</p>
+            </div>
+            <figure class="demo bars-demo" aria-label="Reading a 4,096-token prompt on one RTX 3090: 7.3 seconds before, 3.1 seconds with Tufra Labs">
+              <p class="bars-title">Reading a 4,096-token prompt</p>
+              <div class="bars" aria-hidden="true">
+                <p class="bar-row"><span>Baseline</span><span class="bar" style="--w: 100%"></span><span>7.3 s</span></p>
+                <p class="bar-row levi"><span>Tufra Labs</span><span class="bar" style="--w: 42%"></span><span>3.1 s</span></p>
+              </div>
+              <figcaption class="method">
+                <button type="button" class="method-toggle" aria-expanded="false" aria-controls="method-prompts">How we measured</button>
+                <span class="method-text" id="method-prompts">One RTX 3090&nbsp;&middot; llama.cpp, Qwen3.6-35B-A3B at Q6, against llama.cpp&rsquo;s automatic fit&nbsp;&middot; prompt reading 564 to 1,330&nbsp;tok/s, generation 97 to 98&nbsp;tok/s&nbsp;&middot; same model file; only where the experts sit and the batch sizes changed</span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="result" role="tabpanel" id="result-rl" aria-labelledby="tab-rl" tabindex="0" hidden>
+            <div class="result-copy">
+              <p class="gain">3.2&times;</p>
+              <p class="what">Faster weight sync in RL training</p>
+              <p class="detail">In production, syncing weights from trainer to generator took 22% of every step. We cut it from 10.2&nbsp;s to 3.2&nbsp;s, and the whole step from 73.3&nbsp;s to 62.7&nbsp;s.</p>
+            </div>
+            <figure class="demo bars-demo" aria-label="Weight sync per step: 10.2 seconds before, 3.2 with Tufra Labs. Whole training step: 73.3 seconds before, 62.7 with Tufra Labs">
+              <p class="bars-title">Weight sync, per step</p>
+              <div class="bars" aria-hidden="true">
+                <p class="bar-row"><span>Baseline</span><span class="bar" style="--w: 100%"></span><span>10.2 s</span></p>
+                <p class="bar-row levi"><span>Tufra Labs</span><span class="bar" style="--w: 31%"></span><span>3.2 s</span></p>
+              </div>
+              <p class="bars-title">Whole training step</p>
+              <div class="bars" aria-hidden="true">
+                <p class="bar-row"><span>Baseline</span><span class="bar" style="--w: 100%"></span><span>73.3 s</span></p>
+                <p class="bar-row levi"><span>Tufra Labs</span><span class="bar" style="--w: 86%"></span><span>62.7 s</span></p>
+              </div>
+              <figcaption class="method">
+                <button type="button" class="method-toggle" aria-expanded="false" aria-controls="method-rl">How we measured</button>
+                <span class="method-text" id="method-rl">8 H100s&nbsp;&middot; verl GRPO on a 4B model, against stock weight sync&nbsp;&middot; the step also includes one memory setting change&nbsp;&middot; KL and importance weights within the same bounds as stock</span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="result" role="tabpanel" id="result-accuracy" aria-labelledby="tab-accuracy" tabindex="0" hidden>
+            <div class="result-copy">
+              <p class="gain">+13.2<span class="unit">points</span></p>
+              <p class="what">Higher accuracy from better prompts</p>
+              <p class="detail">The average score across four benchmarks went from 48.9 with the original prompts to 62.0 with the ones LEVI found.</p>
+              <p class="detail cost">GEPA reached 61.3 with 4,985 rollouts. LEVI used 2,191.</p>
+            </div>
+            <figure class="demo bars-demo" aria-label="Average score across four benchmarks: 48.9 with the original prompts, 61.3 with GEPA, 62.0 with Tufra Labs. Rollouts used: 4,985 for GEPA, 2,191 for Tufra Labs">
+              <p class="bars-title">Average score, four benchmarks</p>
+              <div class="bars" aria-hidden="true">
+                <p class="bar-row"><span>Baseline</span><span class="bar" style="--w: 79%"></span><span>48.9</span></p>
+                <p class="bar-row"><span>GEPA</span><span class="bar" style="--w: 99%"></span><span>61.3</span></p>
+                <p class="bar-row levi"><span>Tufra Labs</span><span class="bar" style="--w: 100%"></span><span>62.0</span></p>
+              </div>
+              <p class="bars-title">Rollouts used</p>
+              <div class="bars" aria-hidden="true">
+                <p class="bar-row"><span>GEPA</span><span class="bar" style="--w: 100%"></span><span>4,985</span></p>
+                <p class="bar-row levi"><span>Tufra Labs</span><span class="bar" style="--w: 44%"></span><span>2,191</span></p>
+              </div>
+              <figcaption class="method">
+                <button type="button" class="method-toggle" aria-expanded="false" aria-controls="method-accuracy">How we measured</button>
+                <span class="method-text" id="method-accuracy">From the LEVI paper&nbsp;&middot; Qwen3-8B as the task model&nbsp;&middot; HotpotQA, IFBench, Hover and PUPA, with the splits from GEPA&rsquo;s own benchmark suite&nbsp;&middot; every optimizer tunes the same DSPy program, so only the prompts differ&nbsp;&middot; average of the four test scores</span>
               </figcaption>
             </figure>
           </div>
@@ -308,7 +388,7 @@
         <div class="faq-list reveal">
           <details>
             <summary>What can you optimize?</summary>
-            <p>The whole stack between your model and the GPU: serving settings, batching and scheduling, and GPU kernels, for inference and training. The results above are on vLLM and H100s; tell us what you run.</p>
+            <p>The whole stack between your model and the GPU: serving settings, batching and scheduling, and GPU kernels, for inference and training. The results above are on vLLM, llama.cpp and verl, on H100s and an RTX 3090; tell us what you run.</p>
           </details>
           <details>
             <summary>What access do you need?</summary>

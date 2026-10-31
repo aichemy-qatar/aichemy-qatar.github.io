@@ -326,6 +326,8 @@ p { margin: 0; text-wrap: pretty; }
 }
 
 .section-title .sub { margin-top: 0.9rem; max-width: var(--measure); color: var(--muted); }
+.section-title .sub a { color: var(--ink); text-decoration: underline 1px rgb(28 30 33 / 0.25); text-underline-offset: 0.25em; }
+.section-title .sub a:hover { color: var(--accent); text-decoration-color: currentColor; }
 
 /* With a legend on the right of the headline. */
 .section-title.split {
@@ -489,6 +491,15 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 .detail { margin-top: 0.5rem; color: var(--muted); text-wrap: pretty; }
 .result .cost { color: var(--ink); font-weight: 500; }
 
+/* Bar demos: before and after as two bars, white for the baseline, brass for Tufra Labs. */
+.bars-title { margin: 0 0 0.75rem; font-size: 0.875rem; color: rgb(255 255 255 / 0.7); }
+.bars + .bars-title { margin-top: 1.5rem; }
+.bar-row { display: grid; grid-template-columns: 6rem 1fr 3.5rem; align-items: center; gap: 0.75rem; margin: 0; font-size: 0.875rem; color: rgb(255 255 255 / 0.85); }
+.bar-row + .bar-row { margin-top: 0.5rem; }
+.bar { width: var(--w); height: 0.75rem; background: rgb(255 255 255 / 0.55); border-radius: 3px; }
+.bar-row.levi .bar { background: var(--brass-light); }
+.bar-row > :last-child { text-align: right; font-variant-numeric: tabular-nums; }
+
 /* A demo is a dark screen with two panes, before and with Tufra Labs, like the
    cluster in the hero: white for what was there, brass for what Tufra Labs adds. */
 
@@ -528,10 +539,26 @@ svg.viz .levi { stroke: var(--accent); stroke-width: 2; }
 
 .pane.levi .pane-head span:last-child { color: var(--brass-light); }
 
-.demo figcaption { margin-top: 1rem; font-size: 0.875rem; line-height: 1.65; color: rgb(255 255 255 / 0.72); text-wrap: pretty; }
+.demo figcaption { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid rgb(255 255 255 / 0.12); font-size: 0.875rem; line-height: 1.65; color: rgb(255 255 255 / 0.72); text-wrap: pretty; }
 
-/* How each demo was measured. On a phone the notes fold away behind this button. */
+/* How each demo was measured: the notes fold away behind this button. Without JS they stay open. */
 .method-toggle { display: none; }
+.js .method-toggle {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.js .method-toggle:hover { color: #fff; }
+.method-toggle::after { content: "+" / ""; color: var(--brass-light); }
+.method.open .method-toggle::after { content: "\2212" / ""; }
+.js .method-text { display: block; margin-top: 0.5rem; }
+.js .method:not(.open) .method-text { display: none; }
 
 /* Fanar: the answer streams in over a hidden full copy, so the pane never jumps. */
 
@@ -1021,7 +1048,9 @@ a.card-cover:hover img { translate: 0 -3px; }
   /* Results: the number, the cost and the demo. The demo shows the before and
      after, so the sentence repeating them goes. */
   .result-tabs { gap: 1rem; margin-bottom: 1.5rem; }
-  .result-tabs button { flex: 1; }
+  .result-tabs { margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); overflow-x: auto; scrollbar-width: none; }
+  .result-tabs::-webkit-scrollbar { display: none; }
+  .result-tabs button { flex: 0 0 auto; }
   .result { grid-template-columns: 1fr; gap: 1.5rem; }
   .what { margin-top: 0.6rem; }
   .result .detail:not(.cost) { display: none; }
@@ -1039,22 +1068,7 @@ a.card-cover:hover img { translate: 0 -3px; }
   .race .pane-body .ghost { display: none; }
   .race .pane-body.scrolled { -webkit-mask-image: linear-gradient(transparent, #000 1.5em); mask-image: linear-gradient(transparent, #000 1.5em); }
 
-  .demo figcaption { margin-top: 0.875rem; padding-top: 0.75rem; border-top: 1px solid rgb(255 255 255 / 0.12); font-size: 0.8125rem; }
-  .js .method-toggle {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding: 0;
-    border: 0;
-    background: none;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
-  }
-  .method-toggle::after { content: "+" / ""; color: var(--brass-light); }
-  .method.open .method-toggle::after { content: "\2212" / ""; }
-  .js .method-text { display: block; margin-top: 0.5rem; }
-  .js .method:not(.open) .method-text { display: none; }
+  .demo figcaption { margin-top: 0.875rem; font-size: 0.8125rem; }
 
   /* How it works: one dark panel of three rows, icon on the left, with a
      hairline between rows that starts where the text does. */
